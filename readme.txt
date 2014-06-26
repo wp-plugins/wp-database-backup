@@ -52,7 +52,7 @@ Few of the Key Features :
 = 1.0.0 = 
 *Plugin Created
 
-= 1.1 = 
+= 2.0 = 
 *Restore Database Backup on singe click
 *Change look and feel
 
@@ -92,7 +92,7 @@ Few of the Key Features :
 
 = 1.0.0 =
 Base version of the plugin. 
-= 1.1 =
+= 2.0 =
 New Feature -Restore Database on Single click
 
 == Official Site ==

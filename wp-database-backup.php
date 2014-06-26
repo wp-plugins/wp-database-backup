@@ -3,7 +3,7 @@
 Plugin Name: WP Database Backup
 Plugin URI:walkeprashant.wordpress.com/wp-database-backup
 Description: This plugin helps you to create/restore wordpress database backup. (Tools->WP-DB-Backup)
-Version: 1.1
+Version: 2.0
 Author:Prashant Walke
 Author URI:walkeprashant.wordpress.com
 
@@ -38,7 +38,7 @@ if ( ! class_exists( 'WPDatabaseBackup' ) ) :
  */
 final class WPDatabaseBackup {
 
-	public $version = '1.1';
+	public $version = '2.0';
 
 	protected static $_instance = null;
 
@@ -52,7 +52,7 @@ final class WPDatabaseBackup {
 	}
 
 	public function __clone() {
-		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), '1.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?' ), '2.0' );
 	}
 
 	public function __construct() {
@@ -81,7 +81,7 @@ final class WPDatabaseBackup {
 }
 
 	public function logger() {
-		_deprecated_function( 'Wpekaplugin->logger', '1.0', 'new WPDB_Logger()' );
+		_deprecated_function( 'Wpekaplugin->logger', '2.0', 'new WPDB_Logger()' );
 		return new WPDB_Logger();
 	}
 
