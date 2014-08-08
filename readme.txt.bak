@@ -52,13 +52,14 @@ Few of the Key Features :
 4. Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/">More Information</a>.
 
 == Screenshots ==
-1.wp_create_new_database_backup.png
 
-2.wp_database_backup.png
+1. screenshot-1.png
 
-3.wp_database_backup_auto_schedule.png
+2. screenshot-2.png
 
-4.wp_database_backup_download.png
+3. screenshot-3.png
+
+4. screenshot-4.png
 
 == Changelog ==
 
