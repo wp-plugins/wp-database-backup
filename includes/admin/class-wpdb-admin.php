@@ -25,7 +25,35 @@ class WPDB_Admin {
 	}
 	function wp_db_backup_admin_init() {
 
-	       
+	        if(isset($_POST['wp_db_backup_email_id']))
+		 {
+		   
+		   update_option('wp_db_backup_email_id',$_POST['wp_db_backup_email_id']);
+		  }
+		   if(isset($_POST['wp_db_backup_email_attachment']))
+		 {
+		   $email_attachment=$_POST['wp_db_backup_email_attachment'];
+		   update_option('wp_db_backup_email_attachment',$email_attachment);
+		  }
+		   if(($_GET['page']="wp-database-backup" && $_GET['action']=="unlink")) 
+		   {
+		     // Specify the target directory and add forward slash
+           $dir = plugin_dir_path(__FILE__)."Destination/Dropbox/tokens/"; 
+           
+            // Open the directory
+            $dirHandle = opendir($dir); 
+             // Loop over all of the files in the folder
+           while ($file = readdir($dirHandle)) { 
+              // If $file is NOT a directory remove it
+               if(!is_dir($file)) { 
+                      unlink ("$dir"."$file"); // unlink() deletes the files
+                 }
+            }
+               // Close the directory
+                closedir($dirHandle); 
+                wp_redirect(get_bloginfo('url').'/wp-admin/tools.php?page=wp-database-backup');
+		   	
+		   }
 	        if(isset($_GET['action'])) {
 		switch((string)$_GET['action']) {
  
@@ -120,7 +148,7 @@ class WPDB_Admin {
 	}
 	
 	register_setting('wp_db_backup_options', 'wp_db_backup_options', array( $this,'wp_db_backup_validate'));
-    add_settings_section('wp_db_backup_main', '', 'wp_db_backup_section_text', array( $this,'wp-database-backup'));
+    @add_settings_section('wp_db_backup_main', '', 'wp_db_backup_section_text', array( $this,'wp-database-backup'));
 }
 function wp_db_backup_validate($input) {	
 	return $input;
@@ -137,7 +165,7 @@ function wp_db_backup_validate($input) {
 			    <li class=""><a href="#db_home" data-toggle="tab">Database Backups</a></li>
 			    <li><a href="#db_schedul" data-toggle="tab">Scheduler</a></li>
 			    <li><a href="#db_help" data-toggle="tab">Help</a></li>
-			    
+			    <li><a href="#db_destination" data-toggle="tab">Destination</a></li>
 		          </ul>
 	                    
 	                 <?php 
@@ -190,8 +218,12 @@ function wp_db_backup_validate($input) {
 		echo '</div>';
 	
 	echo '<div class="tab-pane" id="db_schedul">';
+echo '<form method="post" action="options.php" name="wp_auto_commenter_form">';
+			 settings_fields('wp_db_backup_options'); 
+			do_settings_sections('wp-database-backup'); 
+		
 			echo '<p>Enable Auto Backups&nbsp;';
-				echo '<input type="checkbox" name="wp_db_backup_options[enable_autobackups]" value="1" '.checked(1, $settings['enable_autobackups'], false).'/>';
+				echo '<input type="checkbox" name="wp_db_backup_options[enable_autobackups]" value="1" '.@checked(1, $settings['enable_autobackups'], false).'/>';
 			echo '</p>';
 			echo '<p>Auto Database Backup Frequency<br />';
 				echo '<select name="wp_db_backup_options[autobackup_frequency]" style="width: 100%; margin: 5px 0 0;">';
@@ -200,10 +232,11 @@ function wp_db_backup_validate($input) {
 					echo '<option value="monthly" '.selected('monthly', $settings['autobackup_frequency'], false).'>Monthly</option>';
 				echo '</select>';
 			echo '</p>';
+                        
 			echo '<p class="submit">';
 				echo '<input type="submit" name="Submit" class="button-primary" value="Save Settings" />';
 			echo '</p>';
-			
+echo '</form>';
 		echo '</div>';
 		
 	echo '<div class="tab-pane" id="db_help">';
@@ -226,39 +259,7 @@ function wp_db_backup_validate($input) {
         </div>
     </div>
   
-  <div class="panel-group" id="accordion">
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapseIV">
-          How to Restore Backup work?
-        </a>
-      </h4>
-    </div>
-    <div id="collapseIV" class="panel-collapse collapse in">
-      <div class="panel-body">
-      <p>Step 1) When you Click on Restore Database Backup button it restore deleted tabale not field's</p>
-      <p>Some time to clean up database tabel there plugin when it gets deactivated</p>
-      <p>There is however a drawback to cleaning up your plugin once it’s deactivated, 
-      the draw back is if you remove all of your plugin settings and datbase and later the user comes back and re-activates your plugin, they’ll have to re-enter all of that information back in.</p>
-      <p>Our database contains all your important information if the database is erased or corrupted you lose everything.
-        Sometimes accident can happen when we least expert it.</p>
-      <p>If you can have made a careless mistake and your database is gone how can you restore your data in your database?
- 
-       So Backup your database regularly.</p>
-
-      <p>Step 2) If you want to restore/move all database field's as well as all tabel then follow these step</p>
-       <p>Download Database Backup file </p>
-     
-      <p>Step 1) Login to phpMyAdmin.</p>
-      <p>Step 2) Click Databases and select the database that you will be importing your data into.</p>
-      <p>Step 3) Across the top of the screen will be a row of tabs. Click the Import tab.</p>
-      <p>Step 4) On the next screen will be a location of text file box, and next to that a button named Browse.</p>
-      <p>Step 5) Click Browse. Locate the backup file stored on your computer.</p>
-      <p>Step 6) Click the Go button.</p>
-	</div>		
-        </div>
-    </div>
+  
   <div class="panel-group" id="accordion">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -286,13 +287,13 @@ function wp_db_backup_validate($input) {
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-          Wish you more feature(Save database backup on FTP, Dropbox, Email)?
+          Wish you more feature?
         </a>
       </h4>
     </div>
     <div id="collapseThree" class="panel-collapse collapse in">
       <div class="panel-body">
-     <p><span class="glyphicon glyphicon-envelope"></span> Drop Mail :walke.prashant28@gmail.com</p>
+     <p><span class="glyphicon glyphicon-envelope"><p>If you want more feature or any suggestion then drop me mail we are try to implement in our wp-database-backup plugin and also try to make it more user friendly</p></span> Drop Mail :walke.prashant28@gmail.com</p>
 			<p><a title="WP-DB-Backup" href="http://walkeprashant.wordpress.com/wp-database-backup/" target="_blank">More Information</a></p>
 	
 	</div>		
@@ -304,12 +305,105 @@ function wp_db_backup_validate($input) {
 
 
 	
- </div>
+ </div> <?php
+		 echo '<div class="tab-pane" id="db_destination">';
+		 ?>
+		 <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseI">
+          <h2>FTP/sFTP </h2>
+       
+        </a>
+      </h4>
+    </div>
+    <div id="collapseI" class="panel-collapse collapse in">
+      <div class="panel-body">
+      <p>FTP/sFTP Destination Define an FTP destination connection. You can define destination which use FTP.</p>
+      <?php	 include plugin_dir_path(__FILE__).'Destination/FTP/ftp-form.php';?>
+	</div>		
+        </div>
+    </div>
+     <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseII">
+          <h2>Email Notification</h2>
+       
+        </a>
+      </h4>
+    </div>
+    <div id="collapseII" class="panel-collapse collapse in">
+      <div class="panel-body">
+      
+     <?php echo '<form name="wp-email_form" method="post" action="" >';
+		 
+			$wp_db_backup_email_id="";
+		        $wp_db_backup_email_id=get_option('wp_db_backup_email_id');
+		        $wp_db_backup_email_attachment="";
+		        $wp_db_backup_email_attachment=get_option('wp_db_backup_email_attachment');
+		        echo '<p>';
+		        echo '<span class="glyphicon glyphicon-envelope"></span> Send Email Notification</br></p>';
+			echo '<p>Email Id : ';
+			echo '<input type="text" name="wp_db_backup_email_id" value="'.$wp_db_backup_email_id.'" placeholder="Your Email Id">';
+			echo '<p>Leave blank if you don\'t want use this feature</p>';
+			echo '<p>Attach backup file : ';
+			$selected_option=get_option( 'wp_db_backup_email_attachment' );
+					
+					if($selected_option=="yes") $selected_yes="selected=\"selected\"";
+					else
+					$selected_yes="";
+					if($selected_option=="no") $selected_no="selected=\"selected\"";
+					else
+					$selected_no="";
+                                 	echo '<select id="lead-theme" name="wp_db_backup_email_attachment">';
+								echo '<option value="none">Select</option>';
+								
+									echo '<option  value="yes"'.$selected_yes.'>Yes</option>';
+									echo '<option  value="no" '.$selected_no.'>No</option>';
+									
+								
+							echo '</select></p>';
+
+					echo '<p>If you want attache backup file to email then select "yes" (File attached only when backup file size <=25MB)</p>';
+					
+			echo '</p>';
+			echo '<p class="submit">';
+				echo '<input type="submit" name="Submit" class="button-primary" value="Save Settings" />';
+			echo '</p>';
+			echo '</form>';?>
+	</div>		
+        </div>
+    </div>
+	
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseIII">
+          <h2>Dropbox </h2>
+       
+        </a>
+      </h4>
+    </div>
+    <div id="collapseIII" class="panel-collapse collapse in">
+      <div class="panel-body">
+      
+     <?php include plugin_dir_path(__FILE__).'Destination/Dropbox/dropboxupload.php';?>
+	</div>		
+        </div>
+    </div>
+		
+		<?php
+		echo '</div>';
+		?>
+		
+
  </div> 
  <div class="panel panel-footer">Thank you for using the <a href="http://walkeprashant.wordpress.com/wp-database-backup/" target="_blank">WP Database Backup</a>.</div>
 
 
                  <?php
+                 
 		
                                           
 	}
@@ -422,9 +516,51 @@ function wp_db_backup_event_process() {
 	);
 	update_option('wp_db_backup_backups', $options);
 	
+	//FTP
+	include plugin_dir_path(__FILE__).'Destination/FTP/preflight.php';
+	$filename = $details['filename'];
+	$filename = $details['filename'];
+	include plugin_dir_path(__FILE__).'Destination/FTP/sendaway.php';
 	
+	//Dropbox
+	$dropb_autho=get_option('dropb_autho');
+	if($dropb_autho=="yes")
+	{
+	include plugin_dir_path(__FILE__).'Destination/Dropbox/dropboxupload.php';
+	
+	
+	$wp_upload_dir = wp_upload_dir();
+	
+	$wp_upload_dir['basedir'] = str_replace('\\', '/', $wp_upload_dir['basedir']);
+	
+	$localfile = trailingslashit($wp_upload_dir['basedir'].'/backup/').$filename;
+	
+
+	$dropbox->UploadFile($localfile, $filename);
+	
+	 }
         
-       
+        //Email
+	if(get_option('wp_db_backup_email_id'))
+	{
+	 $to=get_option('wp_db_backup_email_id');
+	 $subject="Database Backup Created Successfully";
+	 $filename=$details['filename'];
+	 $filesze=$details['size'];
+	 $message="Hi, \n\n Database Backup Created Successfully \n\n File Name :$filename \n\n File Size :".$this->wp_db_backup_format_bytes($filesze)." \n\n Thank you for using WP-Database-Backup Plugin \n\n For Advanced Feature drop mail walke.prashant28@gmail.com";
+	 $headers="";
+	  $wp_db_backup_email_attachment_file=get_option('wp_db_backup_email_attachment');
+	  if($wp_db_backup_email_attachment_file=="yes" && $details['size']<=209700000)
+	  {
+	  $wp_upload_dir = wp_upload_dir();
+	  $wp_upload_dir['basedir'] = str_replace('\\', '/', $wp_upload_dir['basedir']);
+	  $filename = $details['filename'];
+          $attachments = trailingslashit($wp_upload_dir['basedir'].'/db-backup'). $filename;
+	  }
+	  else
+	 $attachments="";
+	 wp_mail( $to, $subject, $message, $headers, $attachments );
+	}
 }
 public function wp_db_backup_cron_schedules($schedules) {
 	$schedules['weekly'] = array(
@@ -439,7 +575,7 @@ public function wp_db_backup_cron_schedules($schedules) {
 }
 public function wp_db_backup_scheduler_activation() {
 	$options= get_option('wp_db_backup_options');
-	if ((!wp_next_scheduled('wp_db_backup_event')) && ($options['enable_autobackups'])) {
+	if ((!wp_next_scheduled('wp_db_backup_event')) && (@$options['enable_autobackups'])) {
 		wp_schedule_event(time(), $options['autobackup_frequency'], 'wp_db_backup_event');
 	}
 }
