@@ -8,7 +8,7 @@ Requires at least: 3.1+
 Tested up to: 3.9.1
 Stable tag: trunk
 
-WP Database Backup plugin helps you to create Database Backup and Restore Database Backup easily on single click.Manual or automated backups And also store database backup on safe place- dropbox,FTP,Email
+WP Database Backup plugin helps you to create Database Backup and Restore Database Backup easily on single click.Manual or automated backups.
 
 == Description ==
 
@@ -35,21 +35,30 @@ Store database backup on safe place- dropbox,FTP,Email
 
 Few of the Key Features :
 1. Database Backup easily on single click
+
 2. Autobackup
+
 3. Restore Database Backup easily on single click
+
 4. Store database backup on safe place- dropbox,FTP,Email
 
 == Installation ==
 1. Download the plugin file, unzip and place it in your wp-content/plugins/ folder. You can alternatively upload it via the WordPress plugin backend.
+
 2. Activate the plugin through the 'Plugins' menu in WordPress.
+
 3. WP Database Backup menu will appear in Dashboard->Tool->WP-DB-Backup. Click on it & get started to use.
+
 4. Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/">More Information</a>.
 
 == Screenshots ==
-1. wp_create_new_database_backup.jpeg
-2. wp_database_backup.jpeg
-3. wp_database_backup_auto_schedule.jpeg
-4. wp_database_backup_download.jpeg
+1.wp_create_new_database_backup.png
+
+2.wp_database_backup.png
+
+3.wp_database_backup_auto_schedule.png
+
+4.wp_database_backup_download.png
 
 == Changelog ==
 
@@ -62,13 +71,17 @@ Few of the Key Features :
 
 = 2.1 = 
 *Store Database Backup FTP,Dropbox,Email
+
 *Email Notification
+
 *fixed bug: Warning: Illegal offset type in /wp-admin/includes/template.php
+
 *Fixed bug: Warning: Illegal string offset 'enable_autobackups
 
 == Frequently Asked Questions ==
 
  Q-How to  create database Backup?
+
  Follow the steps listed below to Create Database Backup
 
  Create Backup:
@@ -95,6 +108,7 @@ Few of the Key Features :
  
  Q.want more featur?
  If you want more feature then
+
  Drop Mail :walke.prashant28@gmail.com
   
 == Upgrade Notice ==
@@ -105,6 +119,7 @@ Base version of the plugin.
 New Feature -Restore Database on Single click
 = 2.1 =
 New Feature-Store Database Backup FTP,Dropbox,Email
+
 fixed bug- Illegal string offset
 
 == Official Site ==

@@ -8,7 +8,7 @@ Requires at least: 3.1+
 Tested up to: 3.9.1
 Stable tag: trunk
 
-WP Database Backup plugin helps you to create Database Backup and Restore Database Backup easily on single click.Manual or automated backups And also store database backup on safe place- dropbox,FTP,Email
+WP Database Backup plugin helps you to create Database Backup and Restore Database Backup easily on single click.Manual or automated backups.
 
 == Description ==
 
@@ -52,13 +52,13 @@ Few of the Key Features :
 4. Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/">More Information</a>.
 
 == Screenshots ==
-1.wp_create_new_database_backup.jpeg
+1.wp_create_new_database_backup.png
 
-2.wp_database_backup.jpeg
+2.wp_database_backup.png
 
-3.wp_database_backup_auto_schedule.jpeg
+3.wp_database_backup_auto_schedule.png
 
-4.wp_database_backup_download.jpeg
+4.wp_database_backup_download.png
 
 == Changelog ==
 
