@@ -66,6 +66,9 @@ Few of the Key Features :
 *fixed bug: Warning: Illegal offset type in /wp-admin/includes/template.php
 *Fixed bug: Warning: Illegal string offset 'enable_autobackups
 
+= 2.1.1 = 
+*Fixed bug: Conflict issue with Disqus Comments System, NextGen Gallery etc.
+
 == Frequently Asked Questions ==
 
  Q-How to  create database Backup?
@@ -106,6 +109,8 @@ New Feature -Restore Database on Single click
 = 2.1 =
 New Feature-Store Database Backup FTP,Dropbox,Email
 fixed bug- Illegal string offset
+= 2.1.1 = 
+*Fixed bug: Conflict issue with Disqus Comments System, NextGen Gallery etc.
 
 == Official Site ==
 For <a href="walkeprashant.wordpress.com/wp-database-backup/">More Information</a> Or Advanced feature drop mail:walke.prashant28@gmail.com

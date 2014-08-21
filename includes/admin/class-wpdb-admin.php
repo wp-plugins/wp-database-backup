@@ -35,7 +35,7 @@ class WPDB_Admin {
 		   $email_attachment=$_POST['wp_db_backup_email_attachment'];
 		   update_option('wp_db_backup_email_attachment',$email_attachment);
 		  }
-		   if(($_GET['page']="wp-database-backup" && $_GET['action']=="unlink")) 
+		   if(($_GET['page']=="wp-database-backup" && $_GET['action']=="unlink")) 
 		   {
 		     // Specify the target directory and add forward slash
            $dir = plugin_dir_path(__FILE__)."Destination/Dropbox/tokens/"; 
