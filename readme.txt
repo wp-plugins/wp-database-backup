@@ -1,6 +1,6 @@
 === WP Database Backup ===
 Contributors: Prashant Walke
-Donate link:http://walkeprashant.wordpress.com/wp-database-backup/	
+Donate link:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=387BZU5UNQ4LA
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: Database backup,db backup ,backup, WordPress Database Backup, WP db backup,wp database backup,wp backup,wordpress backup, mysql backup,automatically database backup,website backup,website database backup,restore database backup,Store database backup on dropbox,ftp,email notification.
