@@ -282,19 +282,26 @@ echo '</form>';
 	</div>		
         </div>
     </div>
+
+  
     <div class="panel-group" id="accordion">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-          Wish you more feature?
+          Support Us
         </a>
       </h4>
     </div>
     <div id="collapseThree" class="panel-collapse collapse in">
       <div class="panel-body">
+	  
      <p><span class="glyphicon glyphicon-envelope"><p>If you want more feature or any suggestion then drop me mail we are try to implement in our wp-database-backup plugin and also try to make it more user friendly</p></span> Drop Mail :walke.prashant28@gmail.com</p>
-			<p><a title="WP-DB-Backup" href="http://walkeprashant.wordpress.com/wp-database-backup/" target="_blank">More Information</a></p>
+	 If you like this plugin then Give <a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/wp-database-backup" title="Rating" sl-processed="1">rating </a>on <a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/wp-database-backup" title="Rating" sl-processed="1">WordPress.org</a></p>
+	 <p></br><a title="WP-DB-Backup" href="http://walkeprashant.wordpress.com/wp-database-backup/" target="_blank">More Information</a></p>
+			<p >Support us to improve plugin. your idea and support are always welcome.<br>
+                <a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=387BZU5UNQ4LA" sl-processed="1"><img alt="donate" src="http://walkeprashant.files.wordpress.com/2014/09/donate.jpg?w=940" class="alignleft wp-image-304 size-full"></a></p>
+			
 	
 	</div>		
         </div>
@@ -533,7 +540,7 @@ function wp_db_backup_event_process() {
 	
 	$wp_upload_dir['basedir'] = str_replace('\\', '/', $wp_upload_dir['basedir']);
 	
-	$localfile = trailingslashit($wp_upload_dir['basedir'].'/backup/').$filename;
+	$localfile = trailingslashit($wp_upload_dir['basedir'].'/db-backup/').$filename;
 	
 
 	$dropbox->UploadFile($localfile, $filename);

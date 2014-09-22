@@ -1,11 +1,11 @@
 === WP Database Backup ===
 Contributors: Prashant Walke
-Donate link:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=387BZU5UNQ4LA
+Donate link:https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=387BZU5UNQ4LA	
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: Database backup,db backup ,backup, WordPress Database Backup, WP db backup,wp database backup,wp backup,wordpress backup, mysql backup,automatically database backup,website backup,website database backup,restore database backup,Store database backup on dropbox,ftp,email notification.
 Requires at least: 3.1+
-Tested up to: 4.0
+Tested up to: 3.9.1
 Stable tag: trunk
 
 WP Database Backup plugin helps you to create Database Backup and Restore Database Backup easily on single click.Manual or automated backups And also store database backup on safe place- dropbox,FTP,Email
@@ -46,7 +46,10 @@ Few of the Key Features :
 4. Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/">More Information</a>.
 
 == Screenshots ==
-Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/">Screenshots and More Information</a>.
+1. wp_create_new_database_backup.jpeg
+2. wp_database_backup.jpeg
+3. wp_database_backup_auto_schedule.jpeg
+4. wp_database_backup_download.jpeg
 
 == Changelog ==
 
@@ -65,6 +68,9 @@ Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/
 
 = 2.1.1 = 
 *Fixed bug: Conflict issue with Disqus Comments System, NextGen Gallery etc.
+
+= 2.1.2 = 
+*Fixed Dropbox issue ( it saves me a "backup" that weight 0KB.)
 
 == Frequently Asked Questions ==
 
@@ -108,6 +114,8 @@ New Feature-Store Database Backup FTP,Dropbox,Email
 fixed bug- Illegal string offset
 = 2.1.1 = 
 *Fixed bug: Conflict issue with Disqus Comments System, NextGen Gallery etc.
+= 2.1.2 = 
+*Fixed issue with Dropbox.
 
 == Official Site ==
 For <a href="walkeprashant.wordpress.com/wp-database-backup/">More Information</a> Or Advanced feature drop mail:walke.prashant28@gmail.com
