@@ -55,7 +55,7 @@ class WPDB_Admin {
                 wp_redirect(get_bloginfo('url').'/wp-admin/tools.php?page=wp-database-backup');
 		   	
 		   }
-	        if(isset($_GET['action'])) {
+	        if(isset($_GET['action']) && current_user_can('manage_options')) {
 		switch((string)$_GET['action']) {
  
 			case 'createdbbackup':
