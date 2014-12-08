@@ -24,6 +24,7 @@ class WPDB_Admin {
 		
 	}
 	function wp_db_backup_admin_init() {
+		if(is_admin()){
 
 	        if(isset($_POST['wp_db_backup_email_id']))
 		 {
@@ -149,6 +150,7 @@ class WPDB_Admin {
 	
 	register_setting('wp_db_backup_options', 'wp_db_backup_options', array( $this,'wp_db_backup_validate'));
     @add_settings_section('wp_db_backup_main', '', 'wp_db_backup_section_text', array( $this,'wp-database-backup'));
+}
 }
 function wp_db_backup_validate($input) {	
 	return $input;
