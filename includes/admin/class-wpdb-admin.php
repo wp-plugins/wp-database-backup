@@ -174,11 +174,18 @@ function wp_db_backup_validate($input) {
 	                      echo '<div class="tab-content">';
                               echo '<div class="tab-pane active"  id="db_home">';
                               echo '<p class="submit">';
-				echo '<a href="'.get_bloginfo('url').'/wp-admin/tools.php?page=wp-database-backup&action=createdbbackup" class="button-primary"><span class="glyphicon glyphicon-plus-sign"></span> Create New Database Backup<a/>';
+				echo '<a href="'.get_bloginfo('url').'/wp-admin/tools.php?page=wp-database-backup&action=createdbbackup" class="button-primary"><span class="glyphicon glyphicon-plus-sign"></span> Create New Database Backup</a>';
 			      echo '</p>';
+                              ?>
+                             
+                                  <?php
 			if($options) {
-				echo '<table class="widefat">';
-					echo '<thead>';
+				
+					echo ' <div class="table-responsive">
+                                <div id="dataTables-example_wrapper" class="dataTables_wrapper form-inline" role="grid">                               
+                                
+                                <table class="table table-striped table-bordered table-hover display" id="example">
+                                    <thead>';
 						echo '<tr class="wpdb-header">';
 							echo '<th class="manage-column" scope="col" width="15%" style="text-align: center;">SL No</th>';
 							echo '<th class="manage-column" scope="col" width="25%">Date</th>';
@@ -188,16 +195,7 @@ function wp_db_backup_validate($input) {
 							echo '<th class="manage-column" scope="col" width="15%"></th>';
 						echo '</tr>';
 					echo '</thead>';
-					echo '<tfoot>';
-						echo '<tr>';
-						    echo '<th class="manage-column" scope="col" width="15%" style="text-align: center;">SL No</th>';
-							echo '<th class="manage-column" scope="col" width="25%">Date</th>';
-							echo '<th class="manage-column" scope="col" width="15%">Backup File</th>';
-							echo '<th class="manage-column" scope="col" width="15%">Size</th>';
-							echo '<th class="manage-column" scope="col" width="15%"></th>';
-							echo '<th class="manage-column" scope="col" width="15%"></th>';
-						echo '</tr>';
-					echo '</tfoot>';
+					
 					echo '<tbody>';
 						$count = 1;
 						foreach($options as $option) {
@@ -212,7 +210,10 @@ function wp_db_backup_validate($input) {
 							$count++;
 						}
 					echo '</tbody>';
-				echo '</table>';
+				
+                                        echo ' </table>     
+                                </div>
+                                  </div>';
 			} else {
 				echo '<p>No Database Backups Created!</p>';
 			}
@@ -244,6 +245,12 @@ echo '</form>';
 	echo '<div class="tab-pane" id="db_help">';
 			echo '<p>';
 			?>
+                             
+                                    <script>
+     $(document).ready(function() {
+             var table = $('#example').DataTable();
+    } );
+    </script>
 			<div class="panel-group" id="accordion">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -291,7 +298,7 @@ echo '</form>';
     <div class="panel-heading">
       <h4 class="panel-title">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-          Support Us
+          Support
         </a>
       </h4>
     </div>
@@ -623,13 +630,22 @@ function wp_backup_get_config_db_name() {
          if (isset($_GET['page'])) { 
             if ($_GET['page'] == "wp-database-backup") {
             
-           wp_enqueue_script('jquery');
-             
+           wp_enqueue_script( 'jquery');
+           
+           wp_enqueue_script('wpdbjquery',WPDB_PLUGIN_URL."/assets/js/wpjquery.js" );
+           wp_enqueue_script('wpdbjquery');
+           
            wp_enqueue_script('bootstrapjs',WPDB_PLUGIN_URL."/assets/js/bootstrap.min.js" );
            wp_enqueue_script('bootstrapjs');
           
            wp_enqueue_style('bootstrapcss',WPDB_PLUGIN_URL."/assets/css/bootstrap.min.css" );
            wp_enqueue_style('bootstrapcss');
+           
+           wp_enqueue_script('dataTables',WPDB_PLUGIN_URL."/assets/js/jquery.dataTables.js");
+           wp_enqueue_script('dataTables');
+          
+           wp_enqueue_style('dataTablescss',WPDB_PLUGIN_URL."/assets/css/jquery.dataTables.css" );
+           wp_enqueue_style('dataTablescss');
            
            wp_enqueue_style('wpdbcss',WPDB_PLUGIN_URL."/assets/css/wpdb_admin.css" );
            wp_enqueue_style('wpdbcss');

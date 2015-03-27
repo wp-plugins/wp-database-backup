@@ -24,20 +24,27 @@ Backup automatically on a repeating schedule
 
 Download backup file direct from your WordPress dashboard
 
-Easy To Install
+Easy To Install(Very easy to use)
 WP Database Backup is super easy to install. 
+
+Simple to configure(very less configuration), less than a minute.
 
 Restore Database Backup
 WP Database Backup plugin helps you to Restore Database Backup easily on single click.
 
-Store database backup on safe plac
 Store database backup on safe place- dropbox,FTP,Email
 
+<br>Database backup list pagination
+<br>Search backup from list(Date/ Database Size)
+<br>Sort backup list (Date/ Database Size)
+
 Few of the Key Features :
-1. Database Backup easily on single click
-2. Autobackup
-3. Restore Database Backup easily on single click
-4. Store database backup on safe place- dropbox,FTP,Email
+1. Database Backup easily on single click.
+2. Autobackup.
+3. Restore Database Backup easily on single click.
+4. Store database backup on safe place- dropbox,FTP,Email.
+5. Pagination.
+6. Search and sort database backup feature.
 
 == Installation ==
 1. Download the plugin file, unzip and place it in your wp-content/plugins/ folder. You can alternatively upload it via the WordPress plugin backend.
@@ -46,6 +53,11 @@ Few of the Key Features :
 4. Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/">More Information</a>.
 
 == Screenshots ==
+screenshot_1.jpg
+screenshot_2.jpg
+screenshot_3.jpg
+screenshot_4.jpg
+
 Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/">Screenshots and More Information</a>.
 
 == Changelog ==
@@ -71,6 +83,12 @@ Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/
 
 = 2.1.3 = 
 *Fixed Vulnerability
+
+= 2.1.3 = 
+*Added new Feature
+<br>Database backup list pagination
+<br>Search backup (Date/ Database Size)
+<br>Sort backup list (Date/ Database Size)
 
 == Frequently Asked Questions ==
 
@@ -105,17 +123,11 @@ Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/
   
 == Upgrade Notice ==
 
-= 1.0.0 =
-Base version of the plugin. 
-= 2.0 =
-New Feature -Restore Database on Single click
-= 2.1 =
-New Feature-Store Database Backup FTP,Dropbox,Email
-fixed bug- Illegal string offset
-= 2.1.1 = 
-*Fixed bug: Conflict issue with Disqus Comments System, NextGen Gallery etc.
-= 2.1.2 = 
-*Fixed issue with Dropbox.
+= 2.1.3 = 
+*Added new Feature
+<br>Database backup list pagination
+<br>Search backup (Date/ Database Size)
+<br>Sort backup list (Date/ Database Size)
 
 == Official Site ==
 For <a href="walkeprashant.wordpress.com/wp-database-backup/">More Information</a> Or Advanced feature drop mail:walke.prashant28@gmail.com
