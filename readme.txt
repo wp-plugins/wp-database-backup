@@ -8,44 +8,45 @@ Requires at least: 3.1+
 Tested up to: 3.9.1
 Stable tag: trunk
 
-WP Database Backup plugin helps you to create Database Backup and Restore Database Backup easily on single click.Manual or automated backups And also store database backup on safe place- dropbox,FTP,Email
+WP Database Backup plugin helps you to create Database Backup and Restore Database Backup easily on single click.Manual or automated backups.
 
 == Description ==
 
 WP Database Backup plugin helps you to create Database Backup and Restore Database Backup easily on single click.Manual or Automated Database Backups And also store database backup on safe place- dropbox,FTP,Email
 
-<b> Features included <b>
+<b> Features included </b>
+<ul>
+<li>Create Database Backup
+WP Database Backup plugin helps you to create Database Backup easily on single click.</li>
 
-Create Database Backup
-WP Database Backup plugin helps you to create Database Backup easily on single click.
+<li>Autobackup
+Backup automatically on a repeating schedule</li>
 
-Autobackup
-Backup automatically on a repeating schedule
+<li>Download backup file direct from your WordPress dashboard</li>
 
-Download backup file direct from your WordPress dashboard
+<li>Easy To Install(Very easy to use)
+WP Database Backup is super easy to install. </li>
 
-Easy To Install(Very easy to use)
-WP Database Backup is super easy to install. 
+<li>Simple to configure(very less configuration), less than a minute.</li>
 
-Simple to configure(very less configuration), less than a minute.
+<li>Restore Database Backup
+WP Database Backup plugin helps you to Restore Database Backup easily on single click.</li>
 
-Restore Database Backup
-WP Database Backup plugin helps you to Restore Database Backup easily on single click.
+<li>Store database backup on safe place- dropbox,FTP,Email</li>
 
-Store database backup on safe place- dropbox,FTP,Email
-
-<br>Database backup list pagination
-<br>Search backup from list(Date/ Database Size)
-<br>Sort backup list (Date/ Database Size)
-
-Few of the Key Features :
-1. Database Backup easily on single click.
-2. Autobackup.
-3. Restore Database Backup easily on single click.
-4. Store database backup on safe place- dropbox,FTP,Email.
-5. Pagination.
-6. Search and sort database backup feature.
-
+<li>Database backup list pagination</li>
+<li>Search backup from list(Date/ Database Size)</li>
+<li>Sort backup list (Date/ Database Size)</li>
+</ul>
+<br><b>Few of the Key Features :</b>
+<ul>
+<li>Database Backup easily on single click.</li>
+<li>Autobackup.</li>
+<li>Restore Database Backup easily on single click.</li>
+<li>Store database backup on safe place- dropbox,FTP,Email.</li>
+<li>Pagination.</li>
+<li>Search and sort database backup feature.</li>
+</ul>
 == Installation ==
 1. Download the plugin file, unzip and place it in your wp-content/plugins/ folder. You can alternatively upload it via the WordPress plugin backend.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
@@ -53,10 +54,10 @@ Few of the Key Features :
 4. Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/">More Information</a>.
 
 == Screenshots ==
-screenshot_1.jpg
-screenshot_2.jpg
-screenshot_3.jpg
-screenshot_4.jpg
+screenshot_1.jpeg
+screenshot_2.jpeg
+screenshot_3.jpeg
+screenshot_4.jpeg
 
 Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/">Screenshots and More Information</a>.
 
@@ -93,29 +94,29 @@ Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/
 == Frequently Asked Questions ==
 
  Q-How to  create database Backup?
- Follow the steps listed below to Create Database Backup
+ <br>Follow the steps listed below to Create Database Backup
 
- Create Backup:
-  1) Click on Create New Database Backup
-  2) Download Database Backup file.
+ <br>Create Backup:
+  <br>1) Click on Create New Database Backup
+  <br>2) Download Database Backup file.
   
  Q-How to restore database backup?
-  Restore Backup:
-  Click on Restore Database Backup 
+  <br>Restore Backup:
+  <br>Click on Restore Database Backup 
   
-  OR
+  <br>OR
 
-  1)Login to phpMyAdmin
-  2)Click Databases and select the database that you will be importing your data into.
-  3)Across the top of the screen will be a row of tabs. Click the Import tab.
-  4)On the next screen will be a location of text file box, and next to that a button named Browse.
-  5)Click Browse. Locate the backup file stored on your computer.
-  6)Click the Go button
+  <br>1)Login to phpMyAdmin
+  <br>2)Click Databases and select the database that you will be importing your data into.
+  <br>3)Across the top of the screen will be a row of tabs. Click the Import tab.
+  <br>4)On the next screen will be a location of text file box, and next to that a button named Browse.
+  <br>5)Click Browse. Locate the backup file stored on your computer.
+  <br>6)Click the Go button
 
  Q-Always get an empty (0 bits) backup file?
- Ans-This is generally caused by an access denied problem.
- You don't have permission to write in the wp-content/uploads. 
- Please check if you have the read write permission on the folder.
+ <br>Ans-This is generally caused by an access denied problem.
+ <br>You don't have permission to write in the wp-content/uploads. 
+ <br>Please check if you have the read write permission on the folder.
  
  Q.want more featur?
  If you want more feature then
