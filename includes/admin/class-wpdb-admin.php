@@ -167,6 +167,7 @@ function wp_db_backup_validate($input) {
 			    <li class=""><a href="#db_home" data-toggle="tab">Database Backups</a></li>
 			    <li><a href="#db_schedul" data-toggle="tab">Scheduler</a></li>
 			    <li><a href="#db_help" data-toggle="tab">Help</a></li>
+                            <li><a href="#db_info" data-toggle="tab">Database Information</a></li>
 			    <li><a href="#db_destination" data-toggle="tab">Destination</a></li>
 		          </ul>
 	                    
@@ -321,7 +322,206 @@ echo '</form>';
 
 
 	
- </div> <?php
+ </div>
+
+                    <div class="tab-pane" id="db_info">                        
+                       <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapsedb">
+                                  Database Information
+
+                                </a>
+                              </h4>
+                            </div>
+                           <div id="collapsedb" class="panel-collapse collapse in">
+                               <div class="panel-body">
+                                   <table class="table table-condensed">
+                                     <tr class="success">
+                                        <th>Setting</th>
+                                        <th>Value</th>
+			       </tr>
+                                <tr>
+                                    <td>Database Host</td><td><?php echo DB_HOST; ?></td>
+                                </tr>
+                                <tr class="default">
+                                    <td>Database Name</td><td> <?php echo DB_NAME; ?></td>
+                                </tr>
+                                <tr>
+                                    <td>Database User</td><td><?php echo DB_USER; ?></td></td>
+                                </tr>
+                                <tr>
+                                    <td>Database Type</td><td>MYSQL</td>
+                                </tr>
+                                <tr>
+                                    <?php
+                                    // Get MYSQL Version
+                                    global $wpdb;
+                                    $mysqlversion = $wpdb->get_var("SELECT VERSION() AS version");
+                                    ?>
+                                    <td>Database Version</td><td>v<?php echo $mysqlversion; ?></td>
+                                </tr>
+                            </table>
+                                  
+                               </div>
+                           </div>
+                       </div>
+                        
+                          <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapsedbtable">
+                                  Tables Information
+
+                                </a>
+                              </h4>
+                            </div>
+                           <div id="collapsedbtable" class="panel-collapse collapse">
+                               <div class="panel-body">
+                                   <table class="table table-condensed">
+                                     <tr class="success">                                        
+                                            <th>No.</th>
+                                            <th>Tables</th>
+                                            <th>Records</th>
+                                            <th>Data Usage</th>				
+                                    </tr>                                 
+                                        <?php
+                                                $no = 0;
+                                                $row_usage = 0;
+                                                $data_usage = 0;                                                
+                                                $tablesstatus = $wpdb->get_results("SHOW TABLE STATUS");
+                                                foreach($tablesstatus as  $tablestatus) {
+                                                        if($no%2 == 0) {
+                                                                $style = '';
+                                                        } else {
+                                                                $style = ' class="alternate"';
+                                                        }
+                                                        $no++;
+                                                        echo "<tr$style>\n";
+                                                        echo '<td>'.number_format_i18n($no).'</td>'."\n";
+                                                        echo "<td>$tablestatus->Name</td>\n";
+                                                        echo '<td>'.number_format_i18n($tablestatus->Rows).'</td>'."\n";                                                       
+                                                        echo '<td>'.format_size($tablestatus->Data_length).'</td>'."\n";
+                                                        $row_usage += $tablestatus->Rows;
+                                                        $data_usage += $tablestatus->Data_length;
+				
+                                                        echo '</tr>'."\n";
+                                                        }
+                                                        echo '<tr class="thead">'."\n";
+                                                        echo '<th>'.__('Total:', 'wp-dbmanager').'</th>'."\n";
+                                                        echo '<th>'.sprintf(_n('%s Table', '%s Tables', $no, 'wp-dbmanager'), number_format_i18n($no)).'</th>'."\n";
+                                                        echo '<th>'.sprintf(_n('%s Record', '%s Records', $row_usage, 'wp-dbmanager'), number_format_i18n($row_usage)).'</th>'."\n";
+                                                        echo '<th>'.format_size($data_usage).'</th>'."\n";                                                       
+                                                        echo '</tr>';
+                                                ?>
+                            
+                                
+                            </table>
+                                  
+                               </div>
+                           </div>
+                       </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapsewp">
+                                  WordPress Information
+
+                                </a>
+                              </h4>
+                            </div>
+                           <div id="collapsewp" class="panel-collapse collapse">
+                               <div class="panel-body">
+                                   <table class="table table-condensed">
+                                     <tr class="success">                                        
+                                            <th>Setting</th>
+                                        <th>Value</th>
+                                            			
+                                    </tr>     
+                                    <tr>
+                                        <td>WordPress Version</td>
+                                        <td><?php bloginfo('version'); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Home URL</td>
+                                        <td> <?php echo home_url(); ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Site URL</td>
+                                        <td><?php echo site_url(); ?></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Upload directory URL</td>
+                                        <td><?php $upload_dir = wp_upload_dir(); ?>
+                                        <?php echo $upload_dir['baseurl']; ?></td>
+                                    </tr>
+                            </table>
+                                  
+                               </div>
+                           </div>
+                       </div>
+                        
+                         <div class="panel panel-default">
+                            <div class="panel-heading">
+                              <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapsewpsetting">
+                                  WordPress Settings
+
+                                </a>
+                              </h4>
+                            </div>
+                           <div id="collapsewpsetting" class="panel-collapse collapse">
+                               <div class="panel-body">
+                                   <table class="table table-condensed">
+                                     <tr class="success">                                        
+                                          <th>Plugin Name</th>
+                                          <th>Version</th>           
+                                    </tr> 
+                                    <?php   $plugins = get_plugins();                                     
+                                    foreach ( $plugins as $plugin ) {
+                                        echo "<tr>
+                                           <td>".$plugin['Name']."</td>
+                                           <td>".$plugin['Version']."</td>                                         
+                                        </tr>";      
+                                  }?>                                    
+                            </table>    
+                                   <table class="table table-condensed">
+                                     <tr class="success">                                        
+                                          <th>Active Theme Name</th>
+                                          <th>Version</th>           
+                                    </tr> 
+                                    <?php   $my_theme = wp_get_theme();                                     
+                                   
+                                        echo "<tr>
+                                           <td>".$my_theme->get('Name')."</td>
+                                           <td>".$my_theme->get('Version')."</td>                                         
+                                        </tr>";      
+                                  ?>                                    
+                            </table> 
+                        <div class="row">
+                         <button class="btn btn-primary" type="button">
+                            Drafts Post Count <span class="badge"><?php $count_posts = wp_count_posts();echo $count_posts->draft;?></span>
+                          </button>
+                          <button class="btn btn-primary" type="button">
+                            Publish Post Count <span class="badge"><?php ;echo $count_posts->publish;?></span>
+                          </button>
+                          <button class="btn btn-primary" type="button">
+                            Drafts Pages Count <span class="badge"><?php $count_pages = wp_count_posts('page');echo $count_pages->draft;?></span>
+                          </button>
+                            <button class="btn btn-primary" type="button">
+                            Publish Pages Count <span class="badge"><?php ;echo $count_pages->publish;?></span>
+                          </button>
+                          <button class="btn btn-primary" type="button">
+                            Approved Comments Count <span class="badge"><?php $comments_count = wp_count_comments();echo $comments_count->approved ;?></span>
+                          </button>
+                        </div>
+                               </div>
+                           </div>
+                       </div>
+                        
+                     
+                    </div>
+ <?php
 		 echo '<div class="tab-pane" id="db_destination">';
 		 ?>
 		 <div class="panel panel-default">
@@ -480,8 +680,13 @@ function wp_db_backup_create_archive() {
 	
 	wp_mkdir_p($path_info['basedir'].'/db-backup');
 	fclose(fopen($path_info['basedir'].'/db-backup/index.php', 'w'));
+        //added htaccess file 08-05-2015 for prevent directory listing
+        fclose(fopen($path_info['basedir'].'/db-backup/.htaccess', $htassesText));
+           $f = fopen($path_info['basedir'].'/db-backup/.htaccess', "w");
+            fwrite($f, "IndexIgnore *");
+            fclose($f);
 	/*Begin : Generate SQL DUMP and save to file database.sql*/
-	$filename=Date("Y_m_d").'_'.Time("H:M:S").'_database.sql';
+	$filename=Date("Y_m_d").'_'.Time("H:M:S").rand(9, 9999).'_database.sql';
 	$handle = fopen($path_info['basedir'].'/db-backup/'.$filename,'w+');
 	fwrite($handle, $this->wp_db_backup_create_mysql_backup());
 	fclose($handle);

@@ -5,7 +5,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: Database backup,db backup ,backup, WordPress Database Backup, WP db backup,wp database backup,wp backup,wordpress backup, mysql backup,automatically database backup,website backup,website database backup,restore database backup,Store database backup on dropbox,ftp,email notification.
 Requires at least: 3.1+
-Tested up to: 3.9.1
+Tested up to: 4.2.2
 Stable tag: trunk
 
 WP Database Backup plugin helps you to create Database Backup and Restore Database Backup easily on single click.Manual or automated backups.
@@ -54,10 +54,11 @@ WP Database Backup plugin helps you to Restore Database Backup easily on single 
 4. Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/">More Information</a>.
 
 == Screenshots ==
-screenshot_1.jpeg
-screenshot_2.jpeg
-screenshot_3.jpeg
-screenshot_4.jpeg
+
+screenshot1.jpeg
+screenshot2.jpeg
+screenshot3.jpeg
+screenshot4.jpeg
 
 Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/">Screenshots and More Information</a>.
 
@@ -85,11 +86,16 @@ Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/
 = 2.1.3 = 
 *Fixed Vulnerability
 
-= 2.1.3 = 
+= 2.2 = 
 *Added new Feature
 <br>Database backup list pagination
 <br>Search backup (Date/ Database Size)
 <br>Sort backup list (Date/ Database Size)
+
+= 2.3 = 
+<br>Added new tab- Database information.
+<br>Include random number in the file name(Improve security).
+<br>Added .htaccess file in db-backup directory for prevent database dump listing(Improve security).
 
 == Frequently Asked Questions ==
 
@@ -124,11 +130,10 @@ Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/
   
 == Upgrade Notice ==
 
-= 2.1.3 = 
-*Added new Feature
-<br>Database backup list pagination
-<br>Search backup (Date/ Database Size)
-<br>Sort backup list (Date/ Database Size)
+= 2.3 = 
+<br>Added new tab- Database information.
+<br>Include random number in the file name(Improve security).
+<br>Added .htaccess file in db-backup directory for prevent database dump listing(Improve security).
 
 == Official Site ==
 For <a href="walkeprashant.wordpress.com/wp-database-backup/">More Information</a> Or Advanced feature drop mail:walke.prashant28@gmail.com
