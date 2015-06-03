@@ -47,6 +47,7 @@ WP Database Backup plugin helps you to Restore Database Backup easily on single 
 <li>Pagination.</li>
 <li>Search and sort database backup feature.</li>
 </ul>
+<a href="http://www.wpseeds.com/product/wp-all-backup/" target="_blank">Get Pro 'WP All Backup' Plugin</a>
 == Installation ==
 1. Download the plugin file, unzip and place it in your wp-content/plugins/ folder. You can alternatively upload it via the WordPress plugin backend.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
@@ -97,6 +98,10 @@ Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/
 <br>Include random number in the file name(Improve security).
 <br>Added .htaccess file in db-backup directory for prevent database dump listing(Improve security).
 
+= 2.4 = 
+<br>Added Hourly Auto Database Backup Frequency
+<br>Added Advance Feature Tab.
+
 == Frequently Asked Questions ==
 
  Q-How to  create database Backup?
@@ -130,10 +135,8 @@ Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/
   
 == Upgrade Notice ==
 
-= 2.3 = 
-<br>Added new tab- Database information.
-<br>Include random number in the file name(Improve security).
-<br>Added .htaccess file in db-backup directory for prevent database dump listing(Improve security).
+= 2.4 = 
+<br>Added Hourly Auto Database Backup Frequency
 
 == Official Site ==
 For <a href="walkeprashant.wordpress.com/wp-database-backup/">More Information</a> Or Advanced feature drop mail:walke.prashant28@gmail.com

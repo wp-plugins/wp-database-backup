@@ -160,7 +160,7 @@ function wp_db_backup_validate($input) {
 	        $settings = get_option('wp_db_backup_options');
 		?> <div class="panel panel-info">
 			<div class="panel-heading">
-                                 <h2><a href="http://walkeprashant.wordpress.com" target="blank"><img src="<?php echo WPDB_PLUGIN_URL.'/assets/images/wp-database-backup.png';?>" ></a>Database Backup Settings</h2>
+                                 <h4><a href="http://walkeprashant.wordpress.com" target="blank"><img src="<?php echo WPDB_PLUGIN_URL.'/assets/images/wp-database-backup.png';?>" ></a>Database Backup Settings <a href="http://www.wpseeds.com/product/wp-all-backup/" target="_blank"><span style='float:right' class="label label-success">Get Pro 'WP All Backup' Plugin</span></a></h4>
                          </div>
                          <div class="panel-body">
 			  <ul class="nav nav-tabs">
@@ -169,6 +169,7 @@ function wp_db_backup_validate($input) {
 			    <li><a href="#db_help" data-toggle="tab">Help</a></li>
                             <li><a href="#db_info" data-toggle="tab">Database Information</a></li>
 			    <li><a href="#db_destination" data-toggle="tab">Destination</a></li>
+                             <li><a href="#db_advanced" data-toggle="tab">Advance Feature</a></li>
 		          </ul>
 	                    
 	                 <?php 
@@ -231,7 +232,8 @@ echo '<form method="post" action="options.php" name="wp_auto_commenter_form">';
 			echo '</p>';
 			echo '<p>Auto Database Backup Frequency<br />';
 				echo '<select name="wp_db_backup_options[autobackup_frequency]" style="width: 100%; margin: 5px 0 0;">';
-					echo '<option value="daily" '.selected('daily', $settings['autobackup_frequency'], false).'>Daily</option>';
+					echo '<option value="hourly" '.selected('hourly', $settings['autobackup_frequency'], false).'>Hourly</option>';
+                                        echo '<option value="daily" '.selected('daily', $settings['autobackup_frequency'], false).'>Daily</option>';
 					echo '<option value="weekly" '.selected('weekly', $settings['autobackup_frequency'], false).'>Weekly</option>';
 					echo '<option value="monthly" '.selected('monthly', $settings['autobackup_frequency'], false).'>Monthly</option>';
 				echo '</select>';
@@ -521,6 +523,69 @@ echo '</form>';
                         
                      
                     </div>
+                    <div class="tab-pane" id="db_advanced">               
+                        <h4>A 'WP ALL Backup' Plugin will backup and restore your entire site at will,
+                        complete with FTP & S3 integration.</h4>
+                        <h2>Pro Features</h2>
+                        <div class="row">
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Complete Backup</div>
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Only Selected file Backup</div>
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> ZipArchive</div>
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> PclZip</div>
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Scheduled backups</div>
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Set backup interval</div>
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Manual backup</div>                        
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Multisite compatible</div>
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Backup entire site</div>
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Include media files</div>                        
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Exclude specific files</div>
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Downloadable log files</div>
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Simple one-click restore</div>
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Set number of backups to store</div>
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Automatically remove oldest backup</div>
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Amazon S3 integration</div>                        
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> FTP and SFTP integration</div>
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Server info quick view</div>
+                        <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Support</div>
+                       </div>
+                        <h3>Key Features</h3>
+                        <div class="row">
+                        
+                            <div class="col-md-3">
+                                  <h4>Fast</h4>
+                                 <p class="bg-success">                               
+                                   This plugin can help you to rapidly create site backup.
+                                   Capture your entire site, including media files, or pick and choose specific files and tables.
+                                 </p>
+                            </div>
+                            <div class="col-md-3">
+                                <h4>Scheduled Backups</h4>
+                               <p class="bg-info">                                   
+                                   Create manual backups, as needed, or schedule automated backups.
+                                   Trigger monthly, daily or hourly backups that are there when you need them most.
+                               </p>
+                            </div>
+                             <div class="col-md-3">
+                                <h4>Essay to use</h4>
+                               <p class="bg-info">                                   
+                                   Create and store as many backups of your site as you want. 
+                                   Get added protection and convenience with one-click restoration.
+                                   Delete old backups options.
+                               </p>
+                            </div>
+                            <div class="col-md-3">
+                                  <h4>Integration</h4>
+                                 <p class="bg-success">                               
+                                  Tie directly into other destination.
+                                Save directly to your favorite cloud services including  Amazon S3, 
+                                 by FTP/SFTP for added security.                                   
+                                 </p>
+                            </div>
+                        </div>
+                       
+
+                        <a href="http://www.wpseeds.com/product/wp-all-backup/" target="_blank"><h4><span class="label label-success">Get Pro 'WP All Backup' Plugin</span></h4></a>
+</div>
  <?php
 		 echo '<div class="tab-pane" id="db_destination">';
 		 ?>
@@ -612,9 +677,11 @@ echo '</form>';
 		<?php
 		echo '</div>';
 		?>
-		
+	
 
+		
  </div> 
+	
  <div class="panel panel-footer">Thank you for using the <a href="http://walkeprashant.wordpress.com/wp-database-backup/" target="_blank">WP Database Backup</a>.</div>
 
 
@@ -681,16 +748,17 @@ function wp_db_backup_create_archive() {
 	wp_mkdir_p($path_info['basedir'].'/db-backup');
 	fclose(fopen($path_info['basedir'].'/db-backup/index.php', 'w'));
         //added htaccess file 08-05-2015 for prevent directory listing
-        fclose(fopen($path_info['basedir'].'/db-backup/.htaccess', $htassesText));
+       // fclose(fopen($path_info['basedir'].'/db-backup/.htaccess', $htassesText));
            $f = fopen($path_info['basedir'].'/db-backup/.htaccess', "w");
             fwrite($f, "IndexIgnore *");
-            fclose($f);
+            fclose($f);         
 	/*Begin : Generate SQL DUMP and save to file database.sql*/
-	$filename=Date("Y_m_d").'_'.Time("H:M:S").rand(9, 9999).'_database.sql';
+        $WPDBFileName=Date("Y_m_d").'_'.Time("H:M:S").rand(9, 9999).'_database';       
+	$filename=$WPDBFileName.'.sql';
 	$handle = fopen($path_info['basedir'].'/db-backup/'.$filename,'w+');
 	fwrite($handle, $this->wp_db_backup_create_mysql_backup());
 	fclose($handle);
-	
+	        
 	/*End : Generate SQL DUMP and save to file database.sql*/
 	$upload_path = array(
 		'filename' => ($filename),
@@ -698,6 +766,14 @@ function wp_db_backup_create_archive() {
 		'url' => ($path_info['baseurl'].'/db-backup/'.$filename),
 		'size' => 0
 	);
+         //added log file 18-05-2015     
+           $logFileName=$WPDBFileName.'_log.txt';
+           $loghandle = fopen($path_info['basedir'].'/db-backup/'.$logFileName, "w");
+           $logMessage="Date : ".Date("Y-m-d")." Time :".Time("H:M:S");
+           $logMessage="/n Database File Name :".$filename;           
+           fwrite($loghandle, $logMessage);
+           fclose($loghandle); 
+           
 	$upload_path['size']=filesize($upload_path['dir']);
 	return $upload_path;
 	
