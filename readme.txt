@@ -48,6 +48,29 @@ WP Database Backup plugin helps you to Restore Database Backup easily on single 
 <li>Search and sort database backup feature.</li>
 </ul>
 <a href="http://www.wpseeds.com/product/wp-all-backup/" target="_blank">Get Pro 'WP All Backup' Plugin</a>
+<p>WP All Backup will backup and restore your entire site at will, complete with FTP &amp; S3 integration</p>
+<h2>Features</h2>
+<ul>
+<li class="col-md-3">Complete Backup</li>
+<li class="col-md-3">Only Selected file Backup</li>
+<li class="col-md-3">ZipArchive</li>
+<li class="col-md-3">PclZip</li>
+<li class="col-md-3">Scheduled backups</li>
+<li class="col-md-3">Set backup interval</li>
+<li class="col-md-3">Manual backup</li>
+<li class="col-md-3">Multisite compatible</li>
+<li class="col-md-3">Backup entire site</li>
+<li class="col-md-3">Include media files</li>
+<li class="col-md-3">Exclude specific files</li>
+<li class="col-md-3">Downloadable log files</li>
+<li class="col-md-3">Simple one-click restore</li>
+<li class="col-md-3">Set number of backups to store</li>
+<li class="col-md-3">Automatically remove oldest backup</li>
+<li class="col-md-3">Amazon S3 integration</li>
+<li class="col-md-3">FTP and SFTP integration</li>
+<li class="col-md-3">Server info quick view</li>
+<li class="col-md-3">Support</li>
+</ul>
 == Installation ==
 1. Download the plugin file, unzip and place it in your wp-content/plugins/ folder. You can alternatively upload it via the WordPress plugin backend.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
