@@ -75,7 +75,7 @@ WP Database Backup plugin helps you to Restore Database Backup easily on single 
 1. Download the plugin file, unzip and place it in your wp-content/plugins/ folder. You can alternatively upload it via the WordPress plugin backend.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. WP Database Backup menu will appear in Dashboard->Tool->WP-DB-Backup. Click on it & get started to use.
-4. Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/">More Information</a>.
+4. Refer to the for <a href=" http://www.wpseeds.com/wp-database-backup/">More Information</a>.
 
 == Screenshots ==
 
@@ -84,7 +84,7 @@ screenshot2.jpeg
 screenshot3.jpeg
 screenshot4.jpeg
 
-Refer to the for <a href="http://walkeprashant.wordpress.com/wp-database-backup/">Screenshots and More Information</a>.
+Refer to the for <a href=" http://www.wpseeds.com/wp-database-backup/">Screenshots and More Information</a>.
 
 == Changelog ==
 
