@@ -204,7 +204,10 @@ function wp_db_backup_validate($input) {
 							echo '<tr '.((($count % 2) == 0)?' class="alternate"':'').'>';
 								echo '<td style="text-align: center;">'.$count.'</td>';
 								echo '<td>'.date('jS, F Y', $option['date']).'<br />'.date('h:i:s A', $option['date']).'</td>';
-								echo '<td><a href="'.$option['url'].'" style="color: #21759B;"><span class="glyphicon glyphicon-download-alt"></span> Download</a></td>';
+								echo '<td>';
+                                                                if(!empty($option['log']))
+                                                                echo '<button id="popoverid" type="button" class="popoverid btn" data-toggle="popover" title="Log" data-content="'.$option['log'].'"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></button><a href="'.$option['url'].'" style="color: #21759B;">';
+                                                                echo '<span class="glyphicon glyphicon-download-alt"></span> Download</a></td>';
 								echo '<td>'.$this->wp_db_backup_format_bytes($option['size']).'</td>';
 								echo '<td><a href="'.get_bloginfo('url').'/wp-admin/tools.php?page=wp-database-backup&action=removebackup&index='.($count - 1).'" class="button-secondary"><span style="color:red" class="glyphicon glyphicon-remove"></span> Remove Database Backup<a/></td>';
 								echo '<td><a href="'.get_bloginfo('url').'/wp-admin/tools.php?page=wp-database-backup&action=restorebackup&index='.($count - 1).'" class="button-secondary"><span class="glyphicon glyphicon-refresh" style="color:blue"></span> Restore Database Backup<a/></td>';
@@ -251,6 +254,7 @@ echo '</form>';
                              
                                     <script>
      $(document).ready(function() {
+         $('.popoverid').popover();
              var table = $('#example').DataTable();
     } );
     </script>
@@ -385,7 +389,7 @@ echo '</form>';
                                             <th>No.</th>
                                             <th>Tables</th>
                                             <th>Records</th>
-                                            <th>Data Usage</th>				
+                                         		
                                     </tr>                                 
                                         <?php
                                                 $no = 0;
@@ -403,9 +407,9 @@ echo '</form>';
                                                         echo '<td>'.number_format_i18n($no).'</td>'."\n";
                                                         echo "<td>$tablestatus->Name</td>\n";
                                                         echo '<td>'.number_format_i18n($tablestatus->Rows).'</td>'."\n";                                                       
-                                                        echo '<td>'.format_size($tablestatus->Data_length).'</td>'."\n";
+                                                       
                                                         $row_usage += $tablestatus->Rows;
-                                                        $data_usage += $tablestatus->Data_length;
+                                                       
 				
                                                         echo '</tr>'."\n";
                                                         }
@@ -413,7 +417,7 @@ echo '</form>';
                                                         echo '<th>'.__('Total:', 'wp-dbmanager').'</th>'."\n";
                                                         echo '<th>'.sprintf(_n('%s Table', '%s Tables', $no, 'wp-dbmanager'), number_format_i18n($no)).'</th>'."\n";
                                                         echo '<th>'.sprintf(_n('%s Record', '%s Records', $row_usage, 'wp-dbmanager'), number_format_i18n($row_usage)).'</th>'."\n";
-                                                        echo '<th>'.format_size($data_usage).'</th>'."\n";                                                       
+                                                                                                     
                                                         echo '</tr>';
                                                 ?>
                             
@@ -754,8 +758,9 @@ function wp_db_backup_create_archive() {
             fclose($f);         
 	/*Begin : Generate SQL DUMP and save to file database.sql*/
         $WPDBFileName=Date("Y_m_d").'_'.Time("H:M:S").rand(9, 9999).'_database';       
-	$filename=$WPDBFileName.'.sql';
-	$handle = fopen($path_info['basedir'].'/db-backup/'.$filename,'w+');
+        $SQLfilename=$WPDBFileName.'.sql';
+	$filename=$WPDBFileName.'.zip';
+	$handle = fopen($path_info['basedir'].'/db-backup/'.$SQLfilename,'w+');
 	fwrite($handle, $this->wp_db_backup_create_mysql_backup());
 	fclose($handle);
 	        
@@ -766,15 +771,24 @@ function wp_db_backup_create_archive() {
 		'url' => ($path_info['baseurl'].'/db-backup/'.$filename),
 		'size' => 0
 	);
-         //added log file 18-05-2015     
-           $logFileName=$WPDBFileName.'_log.txt';
-           $loghandle = fopen($path_info['basedir'].'/db-backup/'.$logFileName, "w");
-           $logMessage="Date : ".Date("Y-m-d")." Time :".Time("H:M:S");
-           $logMessage="/n Database File Name :".$filename;           
-           fwrite($loghandle, $logMessage);
-           fclose($loghandle); 
-           
+        if ( class_exists( 'ZipArchive' ) )
+		{
+			$zip = new ZipArchive;
+			$zip->open($path_info['basedir'].'/db-backup/'.$WPDBFileName.".zip", ZipArchive::CREATE);
+                        $zip->addFile($path_info['basedir'].'/db-backup/'.$SQLfilename,$SQLfilename);                        
+			$zip->close();
+                    //    @unlink($path_info['basedir']."/db-backup/".$SQLfilename.".sql");
+		
+		}
+		else
+		{
+			error_log("Class ZipArchive Not Present");
+			
+		}
+                   
+        $logMessage="Database File Name :".$filename; 
 	$upload_path['size']=filesize($upload_path['dir']);
+        $upload_path['log']=$logMessage;
 	return $upload_path;
 	
 }
@@ -804,15 +818,7 @@ function wp_db_backup_event_process() {
 	if(!$options) {
 		$options = array();
 	}
-	$options[] = array(
-		'date' => mktime(),
-		'filename' => $details['filename'],
-		'url' => $details['url'],
-		'dir' => $details['dir'],
-		'size' => $details['size']
-	);
-	update_option('wp_db_backup_backups', $options);
-	
+	$logMessage=$details['log'];
 	//FTP
 	include plugin_dir_path(__FILE__).'Destination/FTP/preflight.php';
 	$filename = $details['filename'];
@@ -834,7 +840,7 @@ function wp_db_backup_event_process() {
 	
 
 	$dropbox->UploadFile($localfile, $filename);
-	
+	$logMessage.=" Upload Database Backup on Dropbox";
 	 }
         
         //Email
@@ -853,11 +859,24 @@ function wp_db_backup_event_process() {
 	  $wp_upload_dir['basedir'] = str_replace('\\', '/', $wp_upload_dir['basedir']);
 	  $filename = $details['filename'];
           $attachments = trailingslashit($wp_upload_dir['basedir'].'/db-backup'). $filename;
+          $logMessageAttachment=" with attached backup file.";
 	  }
 	  else
 	 $attachments="";
 	 wp_mail( $to, $subject, $message, $headers, $attachments );
+         $logMessage.=" Send Backup Mail to:".$to;
+         $logMessage.=$logMessageAttachment;
 	}
+        $options[] = array(
+		'date' => mktime(),
+		'filename' => $details['filename'],
+		'url' => $details['url'],
+		'dir' => $details['dir'],
+                'log' => $logMessage,
+		'size' => $details['size']
+	);
+	update_option('wp_db_backup_backups', $options);
+	
 }
 public function wp_db_backup_cron_schedules($schedules) {
 	$schedules['weekly'] = array(

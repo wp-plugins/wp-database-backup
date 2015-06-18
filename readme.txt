@@ -125,6 +125,13 @@ Refer to the for <a href=" http://www.wpseeds.com/wp-database-backup/">Screensho
 <br>Added Hourly Auto Database Backup Frequency
 <br>Added Advance Feature Tab.
 
+= 3.0 = 
+<br>Added log message.
+<br>Send database backup to destination in zip format.
+<br>Download database backup file in zip format.
+<br>Resoled Database information tab issue.
+
+
 == Frequently Asked Questions ==
 
  Q-How to  create database Backup?
@@ -158,8 +165,11 @@ Refer to the for <a href=" http://www.wpseeds.com/wp-database-backup/">Screensho
   
 == Upgrade Notice ==
 
-= 2.4 = 
-<br>Added Hourly Auto Database Backup Frequency
+= 3.0 = 
+<br>Added log message.
+<br>Send database backup to destination in zip format.
+<br>Download database backup file in zip format.
+<br>Resoled Database information tab issue.
 
 == Official Site ==
 For <a href="walkeprashant.wordpress.com/wp-database-backup/">More Information</a> Or Advanced feature drop mail:walke.prashant28@gmail.com
