@@ -131,6 +131,9 @@ Refer to the for <a href=" http://www.wpseeds.com/wp-database-backup/">Screensho
 <br>Download database backup file in zip format.
 <br>Resoled Database information tab issue.
 
+= 3.1 = 
+<br>Added Support and Documantation link in help section.
+<br>Resolved .htasses file issue(remove create .htasses file code).
 
 == Frequently Asked Questions ==
 
@@ -165,11 +168,9 @@ Refer to the for <a href=" http://www.wpseeds.com/wp-database-backup/">Screensho
   
 == Upgrade Notice ==
 
-= 3.0 = 
-<br>Added log message.
-<br>Send database backup to destination in zip format.
-<br>Download database backup file in zip format.
-<br>Resoled Database information tab issue.
+= 3.1 = 
+<br>Added Support and Documantation link in help section.
+<br>Resolved .htasses file issue(remove create .htasses file code).
 
 == Official Site ==
 For <a href="walkeprashant.wordpress.com/wp-database-backup/">More Information</a> Or Advanced feature drop mail:walke.prashant28@gmail.com

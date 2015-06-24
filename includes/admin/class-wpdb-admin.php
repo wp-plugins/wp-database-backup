@@ -205,9 +205,9 @@ function wp_db_backup_validate($input) {
 								echo '<td style="text-align: center;">'.$count.'</td>';
 								echo '<td>'.date('jS, F Y', $option['date']).'<br />'.date('h:i:s A', $option['date']).'</td>';
 								echo '<td>';
-                                                                if(!empty($option['log']))
+                                                                if(!empty($option['log'])){
                                                                 echo '<button id="popoverid" type="button" class="popoverid btn" data-toggle="popover" title="Log" data-content="'.$option['log'].'"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></button><a href="'.$option['url'].'" style="color: #21759B;">';
-                                                                echo '<span class="glyphicon glyphicon-download-alt"></span> Download</a></td>';
+                                                                }echo '<span class="glyphicon glyphicon-download-alt"></span> Download</a></td>';
 								echo '<td>'.$this->wp_db_backup_format_bytes($option['size']).'</td>';
 								echo '<td><a href="'.get_bloginfo('url').'/wp-admin/tools.php?page=wp-database-backup&action=removebackup&index='.($count - 1).'" class="button-secondary"><span style="color:red" class="glyphicon glyphicon-remove"></span> Remove Database Backup<a/></td>';
 								echo '<td><a href="'.get_bloginfo('url').'/wp-admin/tools.php?page=wp-database-backup&action=restorebackup&index='.($count - 1).'" class="button-secondary"><span class="glyphicon glyphicon-refresh" style="color:blue"></span> Restore Database Backup<a/></td>';
@@ -222,7 +222,7 @@ function wp_db_backup_validate($input) {
 			} else {
 				echo '<p>No Database Backups Created!</p>';
 			}
-			
+			echo "<div class='alert alert-success' role='alert'><h4>Get Flat 25% off on <a href='http://www.wpseeds.com/product/wp-all-backup/' target='_blank'>WP All Backup Plugin.</a> Use Coupon code 'WPDB25'</h4></div>";
 		echo '</div>';
 	
 	echo '<div class="tab-pane" id="db_schedul">';
@@ -311,8 +311,9 @@ echo '</form>';
     </div>
     <div id="collapseThree" class="panel-collapse collapse in">
       <div class="panel-body">
-	  
-     <p><span class="glyphicon glyphicon-envelope"><p>If you want more feature or any suggestion then drop me mail we are try to implement in our wp-database-backup plugin and also try to make it more user friendly</p></span> Drop Mail :walke.prashant28@gmail.com</p>
+	  <button type="button" class="btn btn-default"><a href='http://www.wpseeds.com/support/'>Support</a></button>
+          <button type="button" class="btn btn-default"><a href='http://www.wpseeds.com/wp-database-backup/'>Documantation</a></button>
+     <p>If you want more feature or any suggestion then drop me mail we are try to implement in our wp-database-backup plugin and also try to make it more user friendly</p><p><span class="glyphicon glyphicon-envelope"></span> Drop Mail :walke.prashant28@gmail.com</p>
 	 If you like this plugin then Give <a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/wp-database-backup" title="Rating" sl-processed="1">rating </a>on <a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/wp-database-backup" title="Rating" sl-processed="1">WordPress.org</a></p>
 	 <p></br><a title="WP-DB-Backup" href="http://walkeprashant.wordpress.com/wp-database-backup/" target="_blank">More Information</a></p>
 			<p >Support us to improve plugin. your idea and support are always welcome.<br>
@@ -530,7 +531,7 @@ echo '</form>';
                     <div class="tab-pane" id="db_advanced">               
                         <h4>A 'WP ALL Backup' Plugin will backup and restore your entire site at will,
                         complete with FTP & S3 integration.</h4>
-                        <h2>Pro Features</h2>
+                        <h2>Pro Features </h2><h4>Get Flat 25% off on WP All Backup Plugin .Use Coupon code 'WPDB25'</h4>
                         <div class="row">
                         <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Complete Backup</div>
                         <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Only Selected file Backup</div>
@@ -753,9 +754,9 @@ function wp_db_backup_create_archive() {
 	fclose(fopen($path_info['basedir'].'/db-backup/index.php', 'w'));
         //added htaccess file 08-05-2015 for prevent directory listing
        // fclose(fopen($path_info['basedir'].'/db-backup/.htaccess', $htassesText));
-           $f = fopen($path_info['basedir'].'/db-backup/.htaccess', "w");
-            fwrite($f, "IndexIgnore *");
-            fclose($f);         
+          // $f = fopen($path_info['basedir'].'/db-backup/.htaccess', "w");
+          //  fwrite($f, "IndexIgnore *");
+          //  fclose($f);         
 	/*Begin : Generate SQL DUMP and save to file database.sql*/
         $WPDBFileName=Date("Y_m_d").'_'.Time("H:M:S").rand(9, 9999).'_database';       
         $SQLfilename=$WPDBFileName.'.sql';
@@ -850,7 +851,7 @@ function wp_db_backup_event_process() {
 	 $subject="Database Backup Created Successfully";
 	 $filename=$details['filename'];
 	 $filesze=$details['size'];
-	 $message="Hi, \n\n Database Backup Created Successfully \n\n File Name :$filename \n\n File Size :".$this->wp_db_backup_format_bytes($filesze)." \n\n Thank you for using WP-Database-Backup Plugin \n\n For Advanced Feature drop mail walke.prashant28@gmail.com";
+	 $message="Hi, \n\n Database Backup Created Successfully \n\n File Name :$filename \n\n File Size :".$this->wp_db_backup_format_bytes($filesze)." \n\n Thank you for using WP-Database-Backup Plugin \n\n Get Pro Features (WP-All-Backup) on following link\n\n www.wpseeds.com/product/wp-all-backup/";
 	 $headers="";
 	  $wp_db_backup_email_attachment_file=get_option('wp_db_backup_email_attachment');
 	  if($wp_db_backup_email_attachment_file=="yes" && $details['size']<=209700000)
