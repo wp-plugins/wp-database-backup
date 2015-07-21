@@ -135,6 +135,13 @@ Refer to the for <a href=" http://www.wpseeds.com/wp-database-backup/">Screensho
 <br>Added Support and Documantation link in help section.
 <br>Resolved .htasses file issue(remove create .htasses file code).
 
+= 3.2 = 
+<br>Added Setting Tab.
+<br>Added Feature:Minimum number of Local Database Backups(Setting Tab).
+<br>Added Feature:Enable Error Log(Setting Tab).
+<br>Resolved Error: Undefined index: page 
+<br>Changes in Email Notification template.
+
 == Frequently Asked Questions ==
 
  Q-How to  create database Backup?
@@ -168,9 +175,12 @@ Refer to the for <a href=" http://www.wpseeds.com/wp-database-backup/">Screensho
   
 == Upgrade Notice ==
 
-= 3.1 = 
-<br>Added Support and Documantation link in help section.
-<br>Resolved .htasses file issue(remove create .htasses file code).
+= 3.2 = 
+<br>Added Setting Tab.
+<br>Added Feature:Minimum number of Local Database Backups(Setting Tab).
+<br>Added Feature:Enable Error Log(Setting Tab).
+<br>Resolved Error: Undefined index: page 
+<br>Changes in Email Notification template.
 
 == Official Site ==
 For <a href="walkeprashant.wordpress.com/wp-database-backup/">More Information</a> Or Advanced feature drop mail:walke.prashant28@gmail.com

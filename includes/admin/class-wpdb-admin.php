@@ -25,7 +25,16 @@ class WPDB_Admin {
 	}
 	function wp_db_backup_admin_init() {
 		if(is_admin()){
-
+                    if(isset($_POST['wpsetting'])){                        
+                    if(isset($_POST['wp_local_db_backup_count'])){
+                              update_option('wp_local_db_backup_count',$_POST['wp_local_db_backup_count']);                            
+                          }
+                    if(isset($_POST['wp_db_log'])){
+                              update_option('wp_db_log',1);                            
+                          }else{
+                               update_option('wp_db_log',0);           
+                          }
+                    }
 	        if(isset($_POST['wp_db_backup_email_id']))
 		 {
 		   
@@ -36,7 +45,7 @@ class WPDB_Admin {
 		   $email_attachment=$_POST['wp_db_backup_email_attachment'];
 		   update_option('wp_db_backup_email_attachment',$email_attachment);
 		  }
-		   if(($_GET['page']=="wp-database-backup" && isset($_GET['action']) && $_GET['action']=="unlink")) 
+		   if(isset($_GET['page']) && $_GET['page']=="wp-database-backup" && isset($_GET['action']) && $_GET['action']=="unlink") 
 		   {
 		     // Specify the target directory and add forward slash
            $dir = plugin_dir_path(__FILE__)."Destination/Dropbox/tokens/"; 
@@ -75,6 +84,8 @@ class WPDB_Admin {
 				}
 				
 				unlink($options[$index]['dir']);
+                                 $sqlFile=  explode('.', $options[$index]['dir']);                                  
+                                 @unlink($sqlFile[0].'.sql');
 				update_option('wp_db_backup_backups', $newoptions);
 				wp_redirect(get_bloginfo('url').'/wp-admin/tools.php?page=wp-database-backup');
 				break;
@@ -166,6 +177,7 @@ function wp_db_backup_validate($input) {
 			  <ul class="nav nav-tabs">
 			    <li class=""><a href="#db_home" data-toggle="tab">Database Backups</a></li>
 			    <li><a href="#db_schedul" data-toggle="tab">Scheduler</a></li>
+                            <li><a href="#db_setting" data-toggle="tab">Settings</a></li>
 			    <li><a href="#db_help" data-toggle="tab">Help</a></li>
                             <li><a href="#db_info" data-toggle="tab">Database Information</a></li>
 			    <li><a href="#db_destination" data-toggle="tab">Destination</a></li>
@@ -191,8 +203,9 @@ function wp_db_backup_validate($input) {
 						echo '<tr class="wpdb-header">';
 							echo '<th class="manage-column" scope="col" width="15%" style="text-align: center;">SL No</th>';
 							echo '<th class="manage-column" scope="col" width="25%">Date</th>';
+                                                        echo '<th class="manage-column" scope="col" width="5%"></th>';
 							echo '<th class="manage-column" scope="col" width="15%">Backup File</th>';
-							echo '<th class="manage-column" scope="col" width="15%">Size</th>';
+							echo '<th class="manage-column" scope="col" width="10%">Size</th>';
 							echo '<th class="manage-column" scope="col" width="15%"></th>';
 							echo '<th class="manage-column" scope="col" width="15%"></th>';
 						echo '</tr>';
@@ -206,8 +219,12 @@ function wp_db_backup_validate($input) {
 								echo '<td>'.date('jS, F Y', $option['date']).'<br />'.date('h:i:s A', $option['date']).'</td>';
 								echo '<td>';
                                                                 if(!empty($option['log'])){
-                                                                echo '<button id="popoverid" type="button" class="popoverid btn" data-toggle="popover" title="Log" data-content="'.$option['log'].'"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></button><a href="'.$option['url'].'" style="color: #21759B;">';
-                                                                }echo '<span class="glyphicon glyphicon-download-alt"></span> Download</a></td>';
+                                                                echo '<button id="popoverid" type="button" class="popoverid btn" data-toggle="popover" title="Log" data-content="'.$option['log'].'"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></button>';
+                                                                }
+                                                                echo '</td>';
+                                                                echo '<td>';
+                                                                echo '<a href="'.$option['url'].'" style="color: #21759B;">';
+                                                                echo '<span class="glyphicon glyphicon-download-alt"></span> Download</a></td>';
 								echo '<td>'.$this->wp_db_backup_format_bytes($option['size']).'</td>';
 								echo '<td><a href="'.get_bloginfo('url').'/wp-admin/tools.php?page=wp-database-backup&action=removebackup&index='.($count - 1).'" class="button-secondary"><span style="color:red" class="glyphicon glyphicon-remove"></span> Remove Database Backup<a/></td>';
 								echo '<td><a href="'.get_bloginfo('url').'/wp-admin/tools.php?page=wp-database-backup&action=restorebackup&index='.($count - 1).'" class="button-secondary"><span class="glyphicon glyphicon-refresh" style="color:blue"></span> Restore Database Backup<a/></td>';
@@ -312,7 +329,7 @@ echo '</form>';
     <div id="collapseThree" class="panel-collapse collapse in">
       <div class="panel-body">
 	  <button type="button" class="btn btn-default"><a href='http://www.wpseeds.com/support/'>Support</a></button>
-          <button type="button" class="btn btn-default"><a href='http://www.wpseeds.com/wp-database-backup/'>Documantation</a></button>
+          <button type="button" class="btn btn-default"><a href='http://www.wpseeds.com/wp-database-backup/'>Documentation</a></button>
      <p>If you want more feature or any suggestion then drop me mail we are try to implement in our wp-database-backup plugin and also try to make it more user friendly</p><p><span class="glyphicon glyphicon-envelope"></span> Drop Mail :walke.prashant28@gmail.com</p>
 	 If you like this plugin then Give <a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/wp-database-backup" title="Rating" sl-processed="1">rating </a>on <a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/wp-database-backup" title="Rating" sl-processed="1">WordPress.org</a></p>
 	 <p></br><a title="WP-DB-Backup" href="http://walkeprashant.wordpress.com/wp-database-backup/" target="_blank">More Information</a></p>
@@ -591,6 +608,38 @@ echo '</form>';
 
                         <a href="http://www.wpseeds.com/product/wp-all-backup/" target="_blank"><h4><span class="label label-success">Get Pro 'WP All Backup' Plugin</span></h4></a>
 </div>
+                    <div class="tab-pane" id="db_setting">   
+                        <div class="panel panel-default">
+                        <div class="panel-body">
+                            <?php
+                            $wp_local_db_backup_count=get_option('wp_local_db_backup_count');     
+                            $wp_db_log=get_option('wp_db_log');
+                            if($wp_db_log==1){
+                                $checked="checked";
+                            }else{
+                                $checked="";
+                            }
+                            ?>
+                            <form action="" method="post">
+                                      <div class="input-group">
+                                                                  <span class="input-group-addon" id="sizing-addon2">Minimum Local Backups</span>
+                                                                  <input type="number" name="wp_local_db_backup_count" value="<?php echo $wp_local_db_backup_count?>" class="form-control" placeholder="Minimum Local Backups" aria-describedby="sizing-addon2">
+
+                                      </div>
+                                      <div class="alert alert-default" role="alert"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> The minimum number of Local Database Backups that should be kept, regardless of their size.</br>Leave blank for keep unlimited database backups.</div>
+
+                                       <div class="input-group">
+                                              <input type="checkbox" <?php echo $checked ?> name="wp_db_log"> Enable Log.
+                                          </div>
+                                      <hr>
+                                                                  <input class="btn button-primary" type="submit" name="wpsetting" value="Save">
+                                 </form>
+                        </div>
+                      </div>
+
+
+
+                      </div>
  <?php
 		 echo '<div class="tab-pane" id="db_destination">';
 		 ?>
@@ -789,7 +838,42 @@ function wp_db_backup_create_archive() {
                    
         $logMessage="Database File Name :".$filename; 
 	$upload_path['size']=filesize($upload_path['dir']);
+        $wp_db_log=get_option('wp_db_log');
+      if($wp_db_log==1){
         $upload_path['log']=$logMessage;
+      }
+         $options = get_option('wp_db_backup_backups');
+	$newoptions = array();
+	$number_of_existing_backups=count($options);
+         error_log("number_of_existing_backups");
+         error_log($number_of_existing_backups);        
+	$number_of_backups_from_user=get_option('wp_local_db_backup_count');
+         error_log("number_of_backups_from_user");
+         error_log($number_of_backups_from_user);   
+         if(!empty($number_of_backups_from_user)){
+        if(!($number_of_existing_backups < $number_of_backups_from_user))
+	{
+          $diff=$number_of_existing_backups-$number_of_backups_from_user;
+		for ($i = 0; $i <= $diff; $i++)
+		{
+			$index=$i;
+                        error_log($options[$index]['dir']);     
+			@unlink($options[$index]['dir']);
+                        $sqlFile=  explode('.', $options[$index]['dir']);                       
+                          @unlink($sqlFile[0].'.sql');
+		}
+                for($i=($diff+1);$i <$number_of_existing_backups; $i++ )
+		{
+                    error_log($i);    
+                    $index=$i;
+                   
+			$newoptions[] = $options[$index];
+                         
+		}               
+                                
+          	update_option('wp_db_backup_backups', $newoptions);
+        }
+         }
 	return $upload_path;
 	
 }
@@ -813,13 +897,19 @@ function wp_db_backup_wp_config_path() {
     return $path;
 }
 function wp_db_backup_event_process() {
-	$options = get_option('wp_db_backup_backups');
+	
 	$details = $this->wp_db_backup_create_archive();
+        $options = get_option('wp_db_backup_backups');
 
 	if(!$options) {
 		$options = array();
 	}
+        $wp_db_log=get_option('wp_db_log');
+      if($wp_db_log==1){
 	$logMessage=$details['log'];
+      }else{
+          $logMessage="";
+      }
 	//FTP
 	include plugin_dir_path(__FILE__).'Destination/FTP/preflight.php';
 	$filename = $details['filename'];
@@ -851,8 +941,21 @@ function wp_db_backup_event_process() {
 	 $subject="Database Backup Created Successfully";
 	 $filename=$details['filename'];
 	 $filesze=$details['size'];
-	 $message="Hi, \n\n Database Backup Created Successfully \n\n File Name :$filename \n\n File Size :".$this->wp_db_backup_format_bytes($filesze)." \n\n Thank you for using WP-Database-Backup Plugin \n\n Get Pro Features (WP-All-Backup) on following link\n\n www.wpseeds.com/product/wp-all-backup/";
-	 $headers="";
+         $site_url= site_url(); 	 
+         $message='<img src="http://www.wpseeds.com/wp-content/uploads/2015/07/wordpress-wp-database-backup.png" alt="WP Database Backup" width="750" height="200"/>
+            <p>Dear WP Database Backup User,<br/></p>            
+            <p>Database Backup Created Successfully.</p>
+            <p>File Name :'.$filename.'</p>
+            <p>File Size :'.$this->wp_db_backup_format_bytes($filesze).'</p>
+            <p>You\'re receiving this email because you have active Email Notification on your site('.$site_url.').</p>
+            <p>Best regards,<br/><br/>
+            <a title="WPSeeds-WprdPress Products" href="http://www.wpseeds.com/shop/" target="_blank"><img src="http://www.wpseeds.com/wp-content/uploads/2015/06/wpseedslogo.png" alt="WPSeeds-WprdPress Products" /></a>
+            <br/><a title="Pro-WP All Backup Plugin" href="www.wpseeds.com/product/wp-all-backup/" target="_blank">Get Pro WP All Backup Plugin</a></p>
+            <p>Tech Support: http://www.wpseeds.com/support/</p>
+            <p>Documentation: http://www.wpseeds.com/wp-database-backup/</p>
+            <p>Pro Features: http://www.wpseeds.com/wp-all-backup/</p>';
+         
+	$headers = array('Content-Type: text/html; charset=UTF-8');
 	  $wp_db_backup_email_attachment_file=get_option('wp_db_backup_email_attachment');
 	  if($wp_db_backup_email_attachment_file=="yes" && $details['size']<=209700000)
 	  {
