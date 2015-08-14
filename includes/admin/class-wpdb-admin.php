@@ -100,12 +100,27 @@ class WPDB_Admin {
 					}
 					$count++;
 				}
-				$database_file=($options[$index]['dir']);
+                                if(isset($options[$index]['sqlfile'])){ //Added for extract zip file V.3.3.0
+                                        $database_file=($options[$index]['sqlfile']);         
+                                }else{
+                                    $database_file=($options[$index]['dir']);  
+					 $sqlFile=  explode('.', $options[$index]['dir']);                       
+                                          $database_file=($sqlFile[0].'.sql'); 
+                                }
 				$database_name=$this->wp_backup_get_config_db_name();
 				$database_user=$this->wp_backup_get_config_data('DB_USER');				
 				$datadase_password=$this->wp_backup_get_config_data('DB_PASSWORD');
 				$database_host=$this->wp_backup_get_config_data('DB_HOST');
-				
+				$path_info = wp_upload_dir();
+                                //Added for extract zip file V.3.3.0
+                                 $ext_path_info=$path_info['basedir'].'/db-backup';
+                                 $database_zip_file=$options[$index]['dir'];
+                                  $zip = new ZipArchive;
+                                  if ($zip->open($database_zip_file) === TRUE) {
+                                      $zip->extractTo($ext_path_info);
+                                      $zip->close();                                        
+                                  }     
+                                  //End for extract zip file V.3.3.0
 				ini_set("max_execution_time", "5000"); 
 				ini_set("max_input_time",     "5000");
 				ini_set('memory_limit', '1000M');
@@ -152,6 +167,14 @@ class WPDB_Admin {
 		
 		}
 		}
+                 if(isset($options[$index]['sqlfile']) && file_exists($options[$index]['sqlfile'])){ //Added for extract zip file V.3.3.0
+                     @unlink($options[$index]['sqlfile']);
+                 }else{
+                                         $database_file=($options[$index]['dir']);  
+					 $sqlFile=  explode('.', $options[$index]['dir']);                       
+                                         $database_file=($sqlFile[0].'.sql');
+					 @unlink( $database_file);
+                                }
 		break;
 		
 		/*END: Restore Database Content*/
@@ -813,7 +836,7 @@ function wp_db_backup_create_archive() {
 	$handle = fopen($path_info['basedir'].'/db-backup/'.$SQLfilename,'w+');
 	fwrite($handle, $this->wp_db_backup_create_mysql_backup());
 	fclose($handle);
-	        
+	 
 	/*End : Generate SQL DUMP and save to file database.sql*/
 	$upload_path = array(
 		'filename' => ($filename),
@@ -838,6 +861,7 @@ function wp_db_backup_create_archive() {
                    
         $logMessage="Database File Name :".$filename; 
 	$upload_path['size']=filesize($upload_path['dir']);
+        $upload_path['sqlfile']=$path_info['basedir'].'/db-backup/'.$SQLfilename;
         $wp_db_log=get_option('wp_db_log');
       if($wp_db_log==1){
         $upload_path['log']=$logMessage;
@@ -874,6 +898,7 @@ function wp_db_backup_create_archive() {
           	update_option('wp_db_backup_backups', $newoptions);
         }
          }
+         @unlink($path_info['basedir'].'/db-backup/'.$SQLfilename);
 	return $upload_path;
 	
 }
@@ -977,6 +1002,7 @@ function wp_db_backup_event_process() {
 		'url' => $details['url'],
 		'dir' => $details['dir'],
                 'log' => $logMessage,
+                'sqlfile' => $details['sqlfile'],
 		'size' => $details['size']
 	);
 	update_option('wp_db_backup_backups', $options);

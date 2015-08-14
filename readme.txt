@@ -5,7 +5,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: Database backup,db backup ,backup, WordPress Database Backup, WP db backup,wp database backup,wp backup,wordpress backup, mysql backup,automatically database backup,website backup,website database backup,restore database backup,Store database backup on dropbox,ftp,email notification.
 Requires at least: 3.1+
-Tested up to: 4.2.2
+Tested up to: 4.2.4
 Stable tag: trunk
 
 WP Database Backup plugin helps you to create Database Backup and Restore Database Backup easily on single click.Manual or automated backups.
@@ -37,6 +37,7 @@ WP Database Backup plugin helps you to Restore Database Backup easily on single 
 <li>Database backup list pagination</li>
 <li>Search backup from list(Date/ Database Size)</li>
 <li>Sort backup list (Date/ Database Size)</li>
+<li>Save database backup file in zip format on local server And Send database backup file to destination in zip format</li>
 </ul>
 <br><b>Few of the Key Features :</b>
 <ul>
@@ -142,6 +143,9 @@ Refer to the for <a href=" http://www.wpseeds.com/wp-database-backup/">Screensho
 <br>Resolved Error: Undefined index: page 
 <br>Changes in Email Notification template.
 
+= 3.3 = 
+<br>New Feature : Save database backup file in zip format on local server.
+
 == Frequently Asked Questions ==
 
  Q-How to  create database Backup?
@@ -175,12 +179,8 @@ Refer to the for <a href=" http://www.wpseeds.com/wp-database-backup/">Screensho
   
 == Upgrade Notice ==
 
-= 3.2 = 
-<br>Added Setting Tab.
-<br>Added Feature:Minimum number of Local Database Backups(Setting Tab).
-<br>Added Feature:Enable Error Log(Setting Tab).
-<br>Resolved Error: Undefined index: page 
-<br>Changes in Email Notification template.
+= 3.3 = 
+Save database backup file in zip format on local server.
 
 == Official Site ==
 For <a href="walkeprashant.wordpress.com/wp-database-backup/">More Information</a> Or Advanced feature drop mail:walke.prashant28@gmail.com
