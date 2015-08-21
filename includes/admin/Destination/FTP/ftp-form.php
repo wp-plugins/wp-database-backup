@@ -1,5 +1,7 @@
 <?php
-
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
 /*
  * @since 1.0
  * FTP FORM SETTINGS
@@ -62,6 +64,11 @@ exit();
 	// UPDATE DIRECTORY
     // If user pressed this button, this hidden field will be set to 'Y'
     if( isset($_POST[ $hidden_field_name3 ]) && $_POST[ $hidden_field_name3 ] == 'Y' ) {
+        //Validate that the contents of the form request came from the current site and not somewhere else added 21-08-15 V.3.4
+        if (!isset($_POST['wpdbbackup_update_setting'])) 
+            die("<br><br>Invalid form data. form request came from the somewhere else not current site!");
+        if (!wp_verify_nonce($_POST['wpdbbackup_update_setting'],'wpdbbackup-update-setting')) 
+            die("<br><br>Invalid form data. form request came from the somewhere else not current site! ");
     // Read their posted value
     $opt_val6 = trim($_POST[ $data_field_name6 ]);
 	// Save the posted value in the database
@@ -76,12 +83,19 @@ exit();
 	// SAVE SETTINGS
     // If user pressed this button, this hidden field will be set to 'Y'
     if( isset($_POST[ $hidden_field_name ]) && $_POST[ $hidden_field_name ] == 'Y' ) {
+        //Validate that the contents of the form request came from the current site and not somewhere else added 21-08-15 V.3.4
+        if (!isset($_POST['wpdbbackup_update_setting'])) 
+             die("<br><br>Invalid form data. form request came from the somewhere else not current site! ");
+        if (!wp_verify_nonce($_POST['wpdbbackup_update_setting'],'wpdbbackup-update-setting')) 
+             die("<br><br>Invalid form data. form request came from the somewhere else not current site! ");
         // Read their posted value
     $opt_val = trim($_POST[ $data_field_name ]);
     $opt_val2 = trim($_POST[ $data_field_name2 ]);
 	$opt_val3 = trim($_POST[ $data_field_name3 ]);
     $opt_val4 = trim($_POST[ $data_field_name4 ]);
+    if(isset($_POST[ $data_field_name5 ])){
 	$opt_val5 = trim($_POST[ $data_field_name5 ]);
+    }
 	$opt_val9 = trim($_POST[ $data_field_name9 ]);
         
 	// Save the posted value in the database
@@ -89,7 +103,9 @@ exit();
     update_option( $opt_name2, $opt_val2 );
 	update_option( $opt_name3, $opt_val3 );
 	update_option( $opt_name4, $opt_val4 );
+        if(isset($_POST[ $data_field_name5 ])){
 	update_option( $opt_name5, $opt_val5 );
+        }
 	update_option( $opt_name9, $opt_val9 );
 
      // Put a "settings updated" message on the screen
@@ -105,6 +121,11 @@ exit();
 	// If user pressed this button, this hidden field will be set to 'Y'
 	
 	if( isset($_POST[ $hidden_field_name ]) && $_POST[ $hidden_field_name ] == 'Test Connection' ) {
+            //Validate that the contents of the form request came from the current site and not somewhere else added 21-08-15 V.3.4
+            if (!isset($_POST['wpdbbackup_update_setting'])) 
+                  die("<br><br>Invalid form data. form request came from the somewhere else not current site! ");
+            if (!wp_verify_nonce($_POST['wpdbbackup_update_setting'],'wpdbbackup-update-setting')) 
+                  die("<br><br>Invalid form data. form request came from the somewhere else not current site! ");
 	include plugin_dir_path( __FILE__ ) . 'test-ftp.php';
 	//
 	// update all options while we're at it
@@ -113,7 +134,9 @@ exit();
     $opt_val2 = trim($_POST[ $data_field_name2 ]);
 	$opt_val3 = trim($_POST[ $data_field_name3 ]);
     $opt_val4 = trim($_POST[ $data_field_name4 ]);
+    if(isset($_POST[ $data_field_name5 ])){
 	$opt_val5 = trim($_POST[ $data_field_name5 ]);
+    }
 	$opt_val9 = trim($_POST[ $data_field_name9 ]);
         
 	// Save the posted value in the database
@@ -121,7 +144,9 @@ exit();
     update_option( $opt_name2, $opt_val2 );
 	update_option( $opt_name3, $opt_val3 );
 	update_option( $opt_name4, $opt_val4 );
+        if(isset($_POST[ $data_field_name5 ])){
 	update_option( $opt_name5, $opt_val5 );
+        }
 	update_option( $opt_name9, $opt_val9 );
 	$result = backupbreeze_test_ftp();
 	// echo "<h2>$result</h2>";
@@ -144,6 +169,7 @@ exit();
 <p>Enter your FTP details for your offsite backup repository. Leave these blank for local backups.</p>		
 <form name="form1" method="post" action="">
 <input type="hidden" name="<?php echo $hidden_field_name; ?>" value="Y">
+<input name="wpdbbackup_update_setting" type="hidden" value="<?php echo wp_create_nonce('wpdbbackup-update-setting'); ?>" />
 
 <table width="700" border="0" cellspacing="10">
   <tr>

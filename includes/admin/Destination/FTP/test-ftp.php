@@ -30,7 +30,7 @@ $subdir = get_option('backupbreeze_ftp_subdir');
 if ($subdir =='') {
 	$subdir = '/';
 }
-$remotefile = $subdir . '/' . $filename;
+@$remotefile = $subdir . '/' . $filename;
 
 // @since 2.0
 // checking FTP Details
@@ -40,7 +40,7 @@ if ( is_admin() ) {
 // If user has WP manage options permissions
 if ( current_user_can('manage_options')) {
 // connect to host ONLY if the 2 security conditions are valid / met
-$conn = ftp_connect($host);
+@$conn = ftp_connect($host);
 }
 }
 

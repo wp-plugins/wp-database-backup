@@ -1,3 +1,7 @@
+<?php 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}?>
 <h2>Destination</h2>
 		
 <!-- Nav tabs -->

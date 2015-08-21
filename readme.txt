@@ -5,7 +5,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: Database backup,db backup ,backup, WordPress Database Backup, WP db backup,wp database backup,wp backup,wordpress backup, mysql backup,automatically database backup,website backup,website database backup,restore database backup,Store database backup on dropbox,ftp,email notification.
 Requires at least: 3.1+
-Tested up to: 4.2.4
+Tested up to: 4.3
 Stable tag: trunk
 
 WP Database Backup plugin helps you to create Database Backup and Restore Database Backup easily on single click.Manual or automated backups.
@@ -146,6 +146,9 @@ Refer to the for <a href=" http://www.wpseeds.com/wp-database-backup/">Screensho
 = 3.3 = 
 <br>New Feature : Save database backup file in zip format on local server.
 
+= 3.4 = 
+<br>Improve security(CSRF protection): Validate that the contents of the form request came from the current site and not somewhere else.
+
 == Frequently Asked Questions ==
 
  Q-How to  create database Backup?
@@ -179,8 +182,9 @@ Refer to the for <a href=" http://www.wpseeds.com/wp-database-backup/">Screensho
   
 == Upgrade Notice ==
 
-= 3.3 = 
-Save database backup file in zip format on local server.
+= 3.4 = 
+Improve security(CSRF protection): Validate that the contents of the form request came from the current site and not somewhere else.
+
 
 == Official Site ==
 For <a href="walkeprashant.wordpress.com/wp-database-backup/">More Information</a> Or Advanced feature drop mail:walke.prashant28@gmail.com
