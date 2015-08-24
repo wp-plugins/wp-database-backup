@@ -7,7 +7,7 @@ class WPDB_Admin {
 
 	public function __construct() {
 	        add_action('admin_init',  array( $this,'wp_db_backup_admin_init'));
-                add_action( 'init', array( $this, 'admin_scripts_style' ) );
+                add_action( 'admin_init', array( $this, 'admin_scripts_style' ) );
 		add_action( 'admin_menu', array( $this, 'admin_menu' ), 9 );
 		add_filter('cron_schedules', array( $this,'wp_db_backup_cron_schedules'));
 		add_action('wp_db_backup_event', array( $this,'wp_db_backup_event_process'));
@@ -27,7 +27,7 @@ class WPDB_Admin {
 		if(is_admin()){
                     if(isset($_POST['wpsetting'])){                        
                     if(isset($_POST['wp_local_db_backup_count'])){
-                              update_option('wp_local_db_backup_count',$_POST['wp_local_db_backup_count']);                            
+                              update_option('wp_local_db_backup_count',sanitize_text_field($_POST['wp_local_db_backup_count']));                            
                           }
                     if(isset($_POST['wp_db_log'])){
                               update_option('wp_db_log',1);                            
@@ -38,11 +38,11 @@ class WPDB_Admin {
 	        if(isset($_POST['wp_db_backup_email_id']))
 		 {
 		   
-		   update_option('wp_db_backup_email_id',$_POST['wp_db_backup_email_id']);
+		   update_option('wp_db_backup_email_id',sanitize_text_field($_POST['wp_db_backup_email_id']));
 		  }
 		   if(isset($_POST['wp_db_backup_email_attachment']))
 		 {
-		   $email_attachment=$_POST['wp_db_backup_email_attachment'];
+		   $email_attachment=sanitize_text_field($_POST['wp_db_backup_email_attachment']);
 		   update_option('wp_db_backup_email_attachment',$email_attachment);
 		  }
 		   if(isset($_GET['page']) && $_GET['page']=="wp-database-backup" && isset($_GET['action']) && $_GET['action']=="unlink") 
@@ -292,12 +292,13 @@ echo '</form>';
 			echo '<p>';
 			?>
                              
-                                    <script>
-     $(document).ready(function() {
-         $('.popoverid').popover();
-             var table = $('#example').DataTable();
-    } );
-    </script>
+                          <script>
+                                          var $j = jQuery.noConflict();
+                            $j(document).ready(function() {       
+                                $j('.popoverid').popover();
+                                    var table = $j('#example').DataTable();
+                           } );
+                           </script>
 			<div class="panel-group" id="accordion">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -1060,10 +1061,7 @@ function wp_backup_get_config_db_name() {
          if (isset($_GET['page'])) { 
             if ($_GET['page'] == "wp-database-backup") {
             
-           wp_enqueue_script( 'jquery');
-           
-           wp_enqueue_script('wpdbjquery',WPDB_PLUGIN_URL."/assets/js/wpjquery.js" );
-           wp_enqueue_script('wpdbjquery');
+           wp_enqueue_script('jquery');   
            
            wp_enqueue_script('bootstrapjs',WPDB_PLUGIN_URL."/assets/js/bootstrap.min.js" );
            wp_enqueue_script('bootstrapjs');
@@ -1071,7 +1069,7 @@ function wp_backup_get_config_db_name() {
            wp_enqueue_style('bootstrapcss',WPDB_PLUGIN_URL."/assets/css/bootstrap.min.css" );
            wp_enqueue_style('bootstrapcss');
            
-           wp_enqueue_script('dataTables',WPDB_PLUGIN_URL."/assets/js/jquery.dataTables.js");
+           wp_enqueue_script('dataTables',WPDB_PLUGIN_URL."/assets/js/jquery.dataTables.js",array( 'jquery' ));
            wp_enqueue_script('dataTables');
           
            wp_enqueue_style('dataTablescss',WPDB_PLUGIN_URL."/assets/css/jquery.dataTables.css" );

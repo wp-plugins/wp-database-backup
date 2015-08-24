@@ -70,7 +70,7 @@ exit();
         if (!wp_verify_nonce($_POST['wpdbbackup_update_setting'],'wpdbbackup-update-setting')) 
             die("<br><br>Invalid form data. form request came from the somewhere else not current site! ");
     // Read their posted value
-    $opt_val6 = trim($_POST[ $data_field_name6 ]);
+    $opt_val6 = sanitize_text_field($_POST[ $data_field_name6 ]);
 	// Save the posted value in the database
     update_option( $opt_name6, $opt_val6 );
 	// Put a "settings updated" message on the screen
@@ -89,14 +89,14 @@ exit();
         if (!wp_verify_nonce($_POST['wpdbbackup_update_setting'],'wpdbbackup-update-setting')) 
              die("<br><br>Invalid form data. form request came from the somewhere else not current site! ");
         // Read their posted value
-    $opt_val = trim($_POST[ $data_field_name ]);
-    $opt_val2 = trim($_POST[ $data_field_name2 ]);
-	$opt_val3 = trim($_POST[ $data_field_name3 ]);
-    $opt_val4 = trim($_POST[ $data_field_name4 ]);
+    $opt_val = sanitize_text_field($_POST[ $data_field_name ]);
+    $opt_val2 = sanitize_text_field($_POST[ $data_field_name2 ]);
+	$opt_val3 = sanitize_text_field($_POST[ $data_field_name3 ]);
+    $opt_val4 = sanitize_text_field($_POST[ $data_field_name4 ]);
     if(isset($_POST[ $data_field_name5 ])){
-	$opt_val5 = trim($_POST[ $data_field_name5 ]);
+	$opt_val5 = sanitize_text_field($_POST[ $data_field_name5 ]);
     }
-	$opt_val9 = trim($_POST[ $data_field_name9 ]);
+	$opt_val9 = sanitize_text_field($_POST[ $data_field_name9 ]);
         
 	// Save the posted value in the database
     update_option( $opt_name, $opt_val );
@@ -130,14 +130,14 @@ exit();
 	//
 	// update all options while we're at it
 	// @since 2.1
-    $opt_val = trim($_POST[ $data_field_name ]);
-    $opt_val2 = trim($_POST[ $data_field_name2 ]);
-	$opt_val3 = trim($_POST[ $data_field_name3 ]);
-    $opt_val4 = trim($_POST[ $data_field_name4 ]);
+    $opt_val = sanitize_text_field($_POST[ $data_field_name ]);
+    $opt_val2 = sanitize_text_field($_POST[ $data_field_name2 ]);
+	$opt_val3 = sanitize_text_field($_POST[ $data_field_name3 ]);
+    $opt_val4 = sanitize_text_field($_POST[ $data_field_name4 ]);
     if(isset($_POST[ $data_field_name5 ])){
-	$opt_val5 = trim($_POST[ $data_field_name5 ]);
+	$opt_val5 = sanitize_text_field($_POST[ $data_field_name5 ]);
     }
-	$opt_val9 = trim($_POST[ $data_field_name9 ]);
+	$opt_val9 = sanitize_text_field($_POST[ $data_field_name9 ]);
         
 	// Save the posted value in the database
     update_option( $opt_name, $opt_val );
