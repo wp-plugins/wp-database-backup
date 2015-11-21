@@ -34,6 +34,12 @@ class WPDB_Admin {
                           }else{
                                update_option('wp_db_log',0);           
                           }
+                          
+                           if(isset($_POST['wp_db_exclude_table'])){
+                              update_option('wp_db_exclude_table',$_POST['wp_db_exclude_table']);                            
+                          }else{
+                                update_option('wp_db_exclude_table','');
+                          }
                     }
 	        if(isset($_POST['wp_db_backup_email_id']))
 		 {
@@ -69,7 +75,7 @@ class WPDB_Admin {
  
 			case 'createdbbackup':
 				$this->wp_db_backup_event_process();
-				wp_redirect(get_bloginfo('url').'/wp-admin/tools.php?page=wp-database-backup');
+				wp_redirect(get_bloginfo('url').'/wp-admin/tools.php?page=wp-database-backup&notification=create');
 				break;
 			case 'removebackup':
 				$index = (int)$_GET['index'];
@@ -87,7 +93,7 @@ class WPDB_Admin {
                                  $sqlFile=  explode('.', $options[$index]['dir']);                                  
                                  @unlink($sqlFile[0].'.sql');
 				update_option('wp_db_backup_backups', $newoptions);
-				wp_redirect(get_bloginfo('url').'/wp-admin/tools.php?page=wp-database-backup');
+				wp_redirect(get_bloginfo('url').'/wp-admin/tools.php?page=wp-database-backup&notification=delete');
 				break;
 			case 'restorebackup':
 				$index = (int)$_GET['index'];
@@ -175,7 +181,8 @@ class WPDB_Admin {
                                          $database_file=($sqlFile[0].'.sql');
 					 @unlink( $database_file);
                                 }
-		break;
+		wp_redirect(get_bloginfo('url').'/wp-admin/tools.php?page=wp-database-backup&notification=restore');
+				break;
 		
 		/*END: Restore Database Content*/
 				
@@ -192,7 +199,10 @@ function wp_db_backup_validate($input) {
 	public function wp_db_backup_settings_page(){
 	        $options = get_option('wp_db_backup_backups');
 	        $settings = get_option('wp_db_backup_options');
-		?> <div class="panel panel-info">
+                include('admin_header_notification.php');
+		?>
+
+<div class="panel panel-info">
 			<div class="panel-heading">
                                  <h4><a href="http://walkeprashant.wordpress.com" target="blank"><img src="<?php echo WPDB_PLUGIN_URL.'/assets/images/wp-database-backup.png';?>" ></a>Database Backup Settings <a href="http://www.wpseeds.com/product/wp-all-backup/" target="_blank"><span style='float:right' class="label label-success">Get Pro 'WP All Backup' Plugin</span></a></h4>
                          </div>
@@ -262,7 +272,9 @@ function wp_db_backup_validate($input) {
 			} else {
 				echo '<p>No Database Backups Created!</p>';
 			}
-			echo "<div class='alert alert-success' role='alert'><h4>Get Flat 30% off on <a href='http://www.wpseeds.com/product/wp-all-backup/' target='_blank'>WP All Backup Plugin.</a> Use Coupon code 'WPDB30'</h4></div>";
+			echo "<div class='alert alert-success' role='alert'><h4>$coupon</h4></div>";
+                        echo '<p>If you like this plugin then Give <a target="_blank" href="http://wordpress.org/support/view/plugin-reviews/wp-database-backup" title="Rating" sl-processed="1"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> rating </a></p>
+	 ';
 		echo '</div>';
 	
 	echo '<div class="tab-pane" id="db_schedul">';
@@ -572,7 +584,7 @@ echo '</form>';
                     <div class="tab-pane" id="db_advanced">               
                         <h4>A 'WP ALL Backup' Plugin will backup and restore your entire site at will,
                         complete with FTP & S3 integration.</h4>
-                        <h2>Pro Features </h2><h4>Get Flat 30% off on WP All Backup Plugin .Use Coupon code 'WPDB30'</h4>
+                        <h2>Pro Features </h2><h4><?php echo $coupon ?></h4>
                         <div class="row">
                         <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Complete Backup</div>
                         <div class="col-md-3"><span class="glyphicon glyphicon-ok-sign" aria-hidden="true"></span> Only Selected file Backup</div>
@@ -638,6 +650,7 @@ echo '</form>';
                             <?php
                             $wp_local_db_backup_count=get_option('wp_local_db_backup_count');     
                             $wp_db_log=get_option('wp_db_log');
+                            $wp_db_exclude_table=get_option('wp_db_exclude_table');
                             if($wp_db_log==1){
                                 $checked="checked";
                             }else{
@@ -651,11 +664,72 @@ echo '</form>';
 
                                       </div>
                                       <div class="alert alert-default" role="alert"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> The minimum number of Local Database Backups that should be kept, regardless of their size.</br>Leave blank for keep unlimited database backups.</div>
-
+                                      <hr>
                                        <div class="input-group">
                                               <input type="checkbox" <?php echo $checked ?> name="wp_db_log"> Enable Log.
                                           </div>
                                       <hr>
+                                        <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseExclude">
+            Exclude Table From Database Backup.
+        </a>
+      </h4>
+    </div>
+    <div id="collapseExclude" class="panel-collapse collapse in">
+      <div class="panel-body">  
+                                      <table class="table table-condensed">
+                                     <tr class="success">                                        
+                                            <th>No.</th>
+                                            <th>Tables</th>
+                                            <th>Records</th>
+                                            <th>Exclude Table</th>
+                                         		
+                                    </tr>                                 
+                                        <?php
+                                                $no = 0;
+                                                $row_usage = 0;
+                                                $data_usage = 0;                                                
+                                                $tablesstatus = $wpdb->get_results("SHOW TABLE STATUS");
+                                                foreach($tablesstatus as  $tablestatus) {
+                                                        if($no%2 == 0) {
+                                                                $style = '';
+                                                        } else {
+                                                                $style = ' class="alternate"';
+                                                        }
+                                                        $no++;
+                                                        echo "<tr $style>\n";
+                                                        echo '<td>'.number_format_i18n($no).'</td>';
+                                                        echo "<td>$tablestatus->Name</td>";
+                                                        echo '<td>'.number_format_i18n($tablestatus->Rows).'</td>';  
+                                                        if(in_array($tablestatus->Name,$wp_db_exclude_table)){
+                                                                $checked="checked";
+                                                            }else{
+                                                                $checked="";
+                                                            }
+                                                        echo '<td> <input type="checkbox" '.$checked.' value="'.$tablestatus->Name.'" name="wp_db_exclude_table['.$tablestatus->Name.']"></td>';
+                                                       
+                                                        $row_usage += $tablestatus->Rows;
+                                                       
+				
+                                                        echo '</tr>';
+                                                        }
+                                                        echo '<tr class="thead">'."\n";
+                                                        echo '<th>'.__('Total:', 'wp-dbmanager').'</th>'."\n";
+                                                        echo '<th>'.sprintf(_n('%s Table', '%s Tables', $no, 'wp-dbmanager'), number_format_i18n($no)).'</th>'."\n";
+                                                        echo '<th>'.sprintf(_n('%s Record', '%s Records', $row_usage, 'wp-dbmanager'), number_format_i18n($row_usage)).'</th>'."\n";
+                                                        echo '<th></th>'."\n";                                             
+                                                        echo '</tr>';
+                                                ?>
+                            
+                                
+                            </table>
+          </div>		
+        </div>
+                                        </div><hr>
+                                  
+                               
                                                                   <input class="btn button-primary" type="submit" name="wpsetting" value="Save">
                                  </form>
                         </div>
@@ -785,10 +859,11 @@ function wp_db_backup_create_mysql_backup() {
 	delete_option('wp_db_backup_backups');
 	delete_option('wp_db_backup_options');
 	/*END : Prevent saving backup plugin settings in the database dump*/
-	
+	$wp_db_exclude_table=get_option('wp_db_exclude_table');
 	$tables = $wpdb->get_col('SHOW TABLES');
 	$output = '';
 	foreach($tables as $table) {
+             if(!(in_array($table,$wp_db_exclude_table))){
 		$result = $wpdb->get_results("SELECT * FROM {$table}", ARRAY_N);
 		$row2 = $wpdb->get_row('SHOW CREATE TABLE '.$table, ARRAY_N); 
 		$output .= "\n\n".$row2[1].";\n\n";
@@ -805,6 +880,7 @@ function wp_db_backup_create_mysql_backup() {
 			$output .= ");\n";
 		}
 		$output .= "\n";
+        }
 	}
 	$wpdb->flush();
 	/*BEGIN : Prevent saving backup plugin settings in the database dump*/
@@ -866,7 +942,10 @@ function wp_db_backup_create_archive() {
         $upload_path['sqlfile']=$path_info['basedir'].'/db-backup/'.$SQLfilename;
         $wp_db_log=get_option('wp_db_log');
       if($wp_db_log==1){
-        $upload_path['log']=$logMessage;
+                  $wp_db_exclude_table=get_option('wp_db_exclude_table');
+                  if(!empty($wp_db_exclude_table))
+                  $logMessage.= '<br> Exclude Table : '.implode(', ', $wp_db_exclude_table);
+                  $upload_path['log']=$logMessage;
       }
          $options = get_option('wp_db_backup_backups');
 	$newoptions = array();
@@ -926,7 +1005,7 @@ function wp_db_backup_wp_config_path() {
 function wp_db_backup_event_process() {
 	
 	$details = $this->wp_db_backup_create_archive();
-        $options = get_option('wp_db_backup_backups');
+        $options = get_option('wp_db_backup_backups');        
 
 	if(!$options) {
 		$options = array();
