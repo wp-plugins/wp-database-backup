@@ -650,6 +650,7 @@ echo '</form>';
                             <?php
                             $wp_local_db_backup_count=get_option('wp_local_db_backup_count');     
                             $wp_db_log=get_option('wp_db_log');
+                            $wp_db_exclude_table=array();
                             $wp_db_exclude_table=get_option('wp_db_exclude_table');
                             if($wp_db_log==1){
                                 $checked="checked";
@@ -703,7 +704,7 @@ echo '</form>';
                                                         echo '<td>'.number_format_i18n($no).'</td>';
                                                         echo "<td>$tablestatus->Name</td>";
                                                         echo '<td>'.number_format_i18n($tablestatus->Rows).'</td>';  
-                                                        if(in_array($tablestatus->Name,$wp_db_exclude_table)){
+                                                        if(!empty($wp_db_exclude_table) && in_array($tablestatus->Name,$wp_db_exclude_table)){
                                                                 $checked="checked";
                                                             }else{
                                                                 $checked="";
@@ -859,6 +860,7 @@ function wp_db_backup_create_mysql_backup() {
 	delete_option('wp_db_backup_backups');
 	delete_option('wp_db_backup_options');
 	/*END : Prevent saving backup plugin settings in the database dump*/
+        $wp_db_exclude_table=array();
 	$wp_db_exclude_table=get_option('wp_db_exclude_table');
 	$tables = $wpdb->get_col('SHOW TABLES');
 	$output = '';

@@ -3,7 +3,7 @@
 Plugin Name: WP Database Backup
 Plugin URI:http://www.wpseeds.com/wp-database-backup
 Description: This plugin helps you to create/restore wordpress database backup. (Tools->WP-DB-Backup)
-Version: 3.6
+Version: 3.7
 Author:Prashant Walke
 Author URI:walkeprashant.wordpress.com
 Text Domain: wpdbbkp
@@ -40,7 +40,7 @@ if ( ! class_exists( 'WPDatabaseBackup' ) ) :
  */
 final class WPDatabaseBackup {
 
-	public $version = '3.6';
+	public $version = '3.7';
 
 	protected static $_instance = null;
 

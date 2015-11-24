@@ -138,7 +138,10 @@ if (!empty($xml)) {
                 <li >
                     <a href="#" >
                         <p><?php _e('Exclude Tables :', 'wpdbbkp'); ?></p>
-<?php echo implode(',<br> ', get_option('wp_db_exclude_table')); ?></p>
+<?php $wp_db_exclude_table=array();
+	$wp_db_exclude_table=get_option('wp_db_exclude_table');
+        if(!empty($wp_db_exclude_table))
+        echo implode(',<br> ', $wp_db_exclude_table); ?></p>
 
                     </a>
                 </li>

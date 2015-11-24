@@ -162,6 +162,11 @@ http://www.wpseeds.com/wp-database-backup/
 = 3.6 = 
 <br>Exclude Tables.
 <br>Add drop down button for Quick setting view, Update notifications
+
+= 3.7 =
+Removed PHP warnings
+*For more info visit : http://www.wpseeds.com/blog/release-new-version-3-7-wp-database-backup/
+
 == Frequently Asked Questions ==
 
  Q-How to  create database Backup?
@@ -196,9 +201,9 @@ http://www.wpseeds.com/wp-database-backup/
   
 == Upgrade Notice ==
 
-= 3.6 = 
+= 3.7 = 
 <br>Exclude Tables.
-<br>Add drop down button for Quick setting view, Update notifications
+<br>Removed PHP warnings 
 
 == Official Site ==
 * http://www.wpseeds.com/wp-database-backup/
