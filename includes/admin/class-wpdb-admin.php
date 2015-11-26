@@ -865,7 +865,7 @@ function wp_db_backup_create_mysql_backup() {
 	$tables = $wpdb->get_col('SHOW TABLES');
 	$output = '';
 	foreach($tables as $table) {
-             if(!(in_array($table,$wp_db_exclude_table))){
+             if(empty($wp_db_exclude_table) || (!(in_array($table,$wp_db_exclude_table)))){
 		$result = $wpdb->get_results("SELECT * FROM {$table}", ARRAY_N);
 		$row2 = $wpdb->get_row('SHOW CREATE TABLE '.$table, ARRAY_N); 
 		$output .= "\n\n".$row2[1].";\n\n";

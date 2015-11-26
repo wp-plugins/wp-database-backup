@@ -20,7 +20,7 @@ $subdir = get_option('backupbreeze_ftp_subdir');
 if ($subdir =='') {
 	$subdir = '/';
 }
-$remotefile = $subdir . '/' . $filename;
+@$remotefile = $subdir . '/' . $filename;
 
 // @since 1.6.1
 // only check FTP Connection if we have details

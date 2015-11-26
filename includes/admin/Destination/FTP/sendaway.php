@@ -34,7 +34,7 @@ $localfile = trailingslashit($wp_upload_dir['basedir'].'/db-backup'). $filename;
 
 // see if port option is blank and set it to 21 if it isn't
 if (!get_option('backupbreeze_ftp_port')) {
-	$port == '21';
+	$port = '21';
 } else {
 $port = get_option('backupbreeze_ftp_port');
 }
